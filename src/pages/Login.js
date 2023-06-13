@@ -64,9 +64,9 @@ export default function Login() {
           <button
             type="submit"
             className="px-5 py-2 text-white transition-colors duration-150 bg-black rounded-md hover:bg-black/70"
+            onClick={handleLogin}
           >
             Log In
-            onClick={handleLogin}
           </button>
         </form>
         <footer className="w-full py-8 text-sm text-center text-gray-400 bg-gray-50">
