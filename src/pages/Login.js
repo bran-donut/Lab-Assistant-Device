@@ -1,8 +1,18 @@
 import Logo from "../assets/lad-logo.png";
 import { useState } from "react";
-import Footer from "../components/Footer";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 export default function Login() {
+
+  //temp way to login
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    setSearchParams("");
+    navigate("/Home");
+  };
+  //temp way to login
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -56,6 +66,7 @@ export default function Login() {
             className="px-5 py-2 text-white transition-colors duration-150 bg-black rounded-md hover:bg-black/70"
           >
             Log In
+            onClick={handleLogin}
           </button>
         </form>
         <footer className="w-full py-8 text-sm text-center text-gray-400 bg-gray-50">

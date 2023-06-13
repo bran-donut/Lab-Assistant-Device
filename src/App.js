@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ManageModules from "./pages/ManageModules";
 import CreateModule from "./pages/CreateModule";
 import EnrolStudents from "./pages/EnrolStudents";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/ResetPassword" element={<ResetPassword />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/manage-modules" element={<ManageModules />} />
           <Route path="/manage-modules/create" element={<CreateModule />} />
