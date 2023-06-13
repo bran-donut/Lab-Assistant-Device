@@ -11,7 +11,7 @@ export default function Login() {
     <>
       <section className="w-full p-5 bg-gray-50">
         <div className="flex flex-col items-center justify-center gap-3 text-center">
-          <img src={Logo} alt="logo" className="h-64" />
+          <img src={Logo} alt="logo" className="h-40 m-6" />
         </div>
         <form className="flex flex-col w-2/3 max-w-md gap-2 p-10 mx-auto mt-10 bg-white border-2 rounded-lg">
           <p className="mb-3 font-normal text-gray-500">
