@@ -37,7 +37,7 @@ const ModuleCreationSteps = ({ step }) => {
           </span>
         </span>
         <div>
-          <span>Enroll Students</span>
+          <span>Enrol Students</span>
           <p>Add students to module</p>
         </div>
       </div>

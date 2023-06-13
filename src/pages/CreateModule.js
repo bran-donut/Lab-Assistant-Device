@@ -19,6 +19,10 @@ export default function CreateModule() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+
+    //Nav to next step
+    setSearchParams("");
+    navigate("/manage-modules/enrol-students");
   };
 
   const handleReturn = () => {
@@ -41,7 +45,7 @@ export default function CreateModule() {
       />
       <ModuleCreationSteps step="1"/>
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
-        <ModuleInputForm formData={formData} handleSubmit={handleSubmit} handleReturn={handleReturn}/>
+        <ModuleInputForm formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} handleReturn={handleReturn}/>
       </section>
     </Layout>
   );

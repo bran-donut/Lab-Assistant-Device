@@ -24,7 +24,7 @@ export default function ModuleInputForm({
         id="moduleName"
         type="text"
         placeholder="Input module name"
-        value={formData.name ? formData.name : ""}
+        defaultValue={formData.name ? formData.name : ""}
         onChange={(e) => {
           setFormData({ ...formData, moduleName: e.target.value });
         }}
