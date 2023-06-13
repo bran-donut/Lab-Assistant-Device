@@ -1,0 +1,10 @@
+{
+  "resourceName": "dynamof3574dc7",
+  "tableName": "dynamof3574dc7",
+  "partitionKey": {
+    "fieldName": "workspaceName",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

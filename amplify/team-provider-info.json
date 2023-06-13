@@ -9,7 +9,25 @@
       "UnauthRoleName": "amplify-lad-dev-141058-unauthRole",
       "StackName": "amplify-lad-dev-141058",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:535196846071:stack/amplify-lad-dev-141058/103cb760-09b1-11ee-89d7-0a6dbb70df8e",
-      "AmplifyAppId": "d382w8enzdpihb"
+      "AmplifyAppId": "d382w8enzdpihb",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-lad-dev-141058-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    },
+    "categories": {
+      "function": {
+        "lad3e103322": {
+          "deploymentBucketName": "amplify-lad-dev-141058-deployment",
+          "s3Key": "amplify-builds/lad3e103322-4f734e53717332662f65-build.zip"
+        }
+      },
+      "auth": {
+        "lad": {}
+      },
+      "storage": {
+        "dynamof3574dc7": {}
+      },
+      "api": {
+        "api07394908": {}
+      }
     }
   }
 }
