@@ -20,10 +20,11 @@ export default function ResetPassword() {
         <img src={Logo} alt="logo" className="h-40 m-6" />
         </div>
         <form
-          className="flex flex-col w-2/3 max-w-md gap-5 p-10 mx-auto mt-10 bg-white border-2 rounded-lg"
+          className="flex flex-col w-2/3 max-w-md gap-3 p-10 mx-auto mt-10 bg-white border-2 rounded-lg"
           onSubmit={handleFormSubmit}
         >
-          <p className="font-bold text-lg">Reset your password</p>
+          <p className="font-bold text-lg">Recover your account</p>
+          <p className="text-gray-400"> Please enter in your new password</p>
           <div className="flex flex-col gap-2">
             <p className="font-semibold ">New Password</p>
             <input
@@ -58,7 +59,7 @@ export default function ResetPassword() {
               type="submit"
               className="px-5 py-2 text-white transition-colors duration-150 bg-black rounded-md hover:bg-black/70"
             >
-              Submit
+              Recover
             </button>
           </div>
         </form>
