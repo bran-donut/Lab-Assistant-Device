@@ -18,7 +18,7 @@ export default function Home({user}) {
     <>
       <Pageheader
         breadCrumbItems={["Home"]}
-        heading={`Welcome" ${user.username}`}
+        heading={`Welcome ${user.username}`}
         description={"Welcome to Lab Assistant Device!"}
         buttonText={"Manage Modules"}
         buttonRoute={"/manage-modules"}

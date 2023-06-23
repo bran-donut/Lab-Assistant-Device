@@ -6,7 +6,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { Amplify } from "aws-amplify";
 import {
   Authenticator,
   View,
@@ -17,7 +16,6 @@ import {
   useAuthenticator,
   Button,
 } from "@aws-amplify/ui-react";
-import awsconfig from "./aws-exports";
 import Layout from "./layouts/layout";
 import Home from "./pages/Home";
 import ManageModules from "./pages/ManageModules";
@@ -25,7 +23,6 @@ import CreateModule from "./pages/CreateModule";
 import EnrolStudents from "./pages/EnrolStudents";
 import "@aws-amplify/ui-react/styles.css";
 
-Amplify.configure(awsconfig);
 
 function App() {
   const components = {
@@ -95,7 +92,7 @@ function App() {
           <Router>
             <Layout>
               <Routes>
-                <Route path="/home" element={<Home user={user} />} />
+                <Route path="/" element={<Home user={user} />} />
                 <Route path="/manage-modules" element={<ManageModules />} />
                 <Route path="/manage-modules/create" element={<CreateModule />} />
                 <Route
