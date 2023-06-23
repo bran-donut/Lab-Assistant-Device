@@ -90,10 +90,10 @@ function App() {
 
   return (
     <Authenticator hideSignUp="true" components={components}>
-      {({ signOut, user }) => (
+      {({ user }) => (
         <div className="App">
           <Router>
-            <Layout signOut={signOut}>
+            <Layout>
               <Routes>
                 <Route path="/home" element={<Home user={user} />} />
                 <Route path="/manage-modules" element={<ManageModules />} />

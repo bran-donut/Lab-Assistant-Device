@@ -2,9 +2,18 @@ import React from "react";
 import { SearchIcon, UserIcon } from '@heroicons/react/solid';
 import Logo from "../assets/lad-logo.png";
 import { NavLink } from "react-router-dom";
+import { Auth } from "aws-amplify";
 
-const Navbar = ({ signOut }) => {
+const handleSignOut = () => {
+    try {
+      Auth.signOut({ global: true });
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+};
 
+
+const Navbar = () => {
   return (
     <nav className="bg-[#0F172A]">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -26,7 +35,7 @@ const Navbar = ({ signOut }) => {
               <SearchIcon className="w-6 h-6 ml-2 text-gray-300 cursor-pointer hover:text-white" />
               <UserIcon
                 className="w-6 h-6 ml-2 text-gray-300 cursor-pointer hover:text-white"
-                onClick={signOut}
+                onClick={handleSignOut}
               />
               {/* temp log out button */}
             </div>
