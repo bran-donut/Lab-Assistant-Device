@@ -3,7 +3,7 @@ import { SearchIcon, UserIcon } from '@heroicons/react/solid';
 import Logo from "../assets/lad-logo.png";
 import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ signOut }) => {
 
   return (
     <nav className="bg-[#0F172A]">
@@ -12,7 +12,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <NavLink to="/Home">
-                <img className="w-17 h-10" src={Logo} alt="Logo" />
+                <img className="h-10 w-17" src={Logo} alt="Logo" />
               </NavLink>
             </div>
           </div>
@@ -26,7 +26,9 @@ const Navbar = () => {
               <SearchIcon className="w-6 h-6 ml-2 text-gray-300 cursor-pointer hover:text-white" />
               <UserIcon
                 className="w-6 h-6 ml-2 text-gray-300 cursor-pointer hover:text-white"
+                onClick={signOut}
               />
+              {/* temp log out button */}
             </div>
           </div>
         </div>

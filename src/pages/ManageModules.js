@@ -15,7 +15,7 @@ export default function ManageModules() {
   ]);
 
   return (
-    <Layout>
+    <>
       <Pageheader
         breadCrumbItems={["Home", "Manage Module Workspaces"]}
         heading={"Manage Module Workspaces"}
@@ -28,6 +28,6 @@ export default function ManageModules() {
           <ModuleCard key={i} moduleData={moduleData[i]} editRoute={"/"} />
         ))}
       </section>
-    </Layout>
+    </>
   );
 }

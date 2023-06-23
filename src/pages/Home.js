@@ -2,7 +2,8 @@ import { useState } from "react";
 import Layout from "../layouts/layout";
 import Pageheader from "../components/Pageheader";
 
-export default function Home() {
+export default function Home({user}) {
+  console.log(user)
   const [moduleData, setModuleData] = useState([
     {
         // DUMMY DATA
@@ -14,10 +15,10 @@ export default function Home() {
   ]);
 
   return (
-    <Layout>
+    <>
       <Pageheader
         breadCrumbItems={["Home"]}
-        heading={"Hello Janice!"}
+        heading={`Welcome ${user.username}`}
         description={"Welcome to Lab Assistant Device!"}
         buttonText={"Manage Modules"}
         buttonRoute={"/manage-modules"}
@@ -25,6 +26,6 @@ export default function Home() {
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
 
       </section>
-    </Layout>
+    </>
   );
 }

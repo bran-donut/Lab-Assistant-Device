@@ -16,7 +16,8 @@
     }
   },
   "auth": {
-    "lad": {
+    "lade728908a": {
+      "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
@@ -37,8 +38,7 @@
         ]
       },
       "providerPlugin": "awscloudformation",
-      "service": "Cognito",
-      "serviceType": "managed"
+      "service": "Cognito"
     }
   },
   "function": {

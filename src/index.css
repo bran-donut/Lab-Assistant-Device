@@ -34,3 +34,15 @@ header a {
   padding: 20px;
   margin: 0 auto;
 }
+
+.amplify-button[data-variation='primary'] {
+  transition-property: background-color;
+  transition-duration: 150ms;
+  background-color: #000;
+  border-radius: 0.375rem;
+  
+}
+
+.amplify-button:hover[data-variation='primary'] {
+  background-color: rgba(0, 0, 0, 0.7);
+}

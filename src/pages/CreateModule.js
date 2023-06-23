@@ -31,7 +31,7 @@ export default function CreateModule() {
   };
 
   return (
-    <Layout>
+    <>
       <Pageheader
         breadCrumbItems={[
           "Home",
@@ -47,6 +47,6 @@ export default function CreateModule() {
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
         <ModuleInputForm formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} handleReturn={handleReturn}/>
       </section>
-    </Layout>
+    </>
   );
 }

@@ -16,17 +16,17 @@
       "function": {
         "lad3e103322": {
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",
-          "s3Key": "amplify-builds/lad3e103322-4f734e53717332662f65-build.zip"
+          "s3Key": "amplify-builds/lad3e103322-2b5947774c6a516c304b-build.zip"
         }
-      },
-      "auth": {
-        "lad": {}
       },
       "storage": {
         "dynamof3574dc7": {}
       },
       "api": {
         "api07394908": {}
+      },
+      "auth": {
+        "lade728908a": {}
       }
     }
   }
