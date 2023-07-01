@@ -1,9 +1,9 @@
 {
   "version": 1,
   "paths": {
-    "/items": {
-      "name": "/items",
-      "lambdaFunction": "lad3e103322",
+    "/workspaces": {
+      "name": "/workspaces",
+      "lambdaFunction": "ladfunction",
       "permissions": {
         "setting": "private",
         "auth": [

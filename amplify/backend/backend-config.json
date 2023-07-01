@@ -1,6 +1,28 @@
 {
   "api": {
-    "api07394908": {
+    "AdminQueries": {
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "lade728908a"
+        },
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "AdminQueries8dc1fec9"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
+    "ladapi": {
       "dependsOn": [
         {
           "attributes": [
@@ -8,7 +30,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "lad3e103322"
+          "resourceName": "ladfunction"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -39,10 +61,40 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "lade728908a"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
     }
   },
   "function": {
-    "lad3e103322": {
+    "AdminQueries8dc1fec9": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "lade728908a"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "ladfunction": {
       "build": true,
       "dependsOn": [
         {
@@ -55,7 +107,7 @@
             "Arn"
           ],
           "category": "storage",
-          "resourceName": "dynamof3574dc7"
+          "resourceName": "workspacesdb"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -63,25 +115,41 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_lad3e103322_deploymentBucketName": {
+    "AMPLIFY_function_AdminQueries8dc1fec9_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "lad3e103322"
+          "resourceName": "AdminQueries8dc1fec9"
         }
       ]
     },
-    "AMPLIFY_function_lad3e103322_s3Key": {
+    "AMPLIFY_function_AdminQueries8dc1fec9_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "lad3e103322"
+          "resourceName": "AdminQueries8dc1fec9"
+        }
+      ]
+    },
+    "AMPLIFY_function_ladfunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ladfunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_ladfunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ladfunction"
         }
       ]
     }
   },
   "storage": {
-    "dynamof3574dc7": {
+    "workspacesdb": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     }

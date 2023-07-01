@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PencilIcon, TrashIcon, SearchIcon } from "@heroicons/react/outline";
 
-export default function AccountsTable({ accountData }) {
+export default function EnrolTable({ studentData }) {
   const [showModal, setShowModal] = useState(false);
   const [accountSelected, setAccountSelected] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,9 +23,9 @@ export default function AccountsTable({ accountData }) {
   const endIndex = startIndex + itemsPerPage;
 
   // Get the data for the current page
-  const currentPageData = accountData
-    .filter((account) =>
-      account.studentName.toLowerCase().includes(searchQuery.toLowerCase())
+  const currentPageData = studentData
+    .filter((student) =>
+    student["Attributes"][2].Value.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .slice(startIndex, endIndex);
 
@@ -109,19 +109,19 @@ export default function AccountsTable({ accountData }) {
               </tr>
             </thead>
             <tbody>
-              {currentPageData.map((account, index) => (
+              {currentPageData.map((student, index) => (
                 <tr key={index}>
                   <td className="px-6 py-4 font-medium text-gray-900">
-                    {account["studentName"]}
+                    {student["Attributes"][2].Value}
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    {account["studentId"]}
+                  {student["Username"]}
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    {account["studentEmail"]}
+                  {student["Attributes"][3].Value}
                   </td>
                   <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  {account["tags"].map((tag, index) => (
+                  {/* {account["tags"].map((tag, index) => (
                     
                     <span
                       key={index}
@@ -129,7 +129,7 @@ export default function AccountsTable({ accountData }) {
                         >
                         {tag}
                         </span>
-                        ))}
+                        ))} */}
                   </td>
                   <td className="flex justify-end gap-5 px-6 py-4">
                     <button
@@ -151,7 +151,7 @@ export default function AccountsTable({ accountData }) {
       <div className="flex justify-center mt-4">
         <Pagination
           currentPage={currentPage}
-          totalPages={Math.ceil(accountData.length / itemsPerPage)}
+          totalPages={Math.ceil(studentData.length / itemsPerPage)}
           onPageChange={handlePageChange}
         />
       </div>

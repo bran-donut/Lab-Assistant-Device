@@ -16,13 +16,13 @@
     "s3Key": {
       "Type": "String"
     },
-    "storagedynamof3574dc7Name": {
+    "storageworkspacesdbName": {
       "Type": "String",
-      "Default": "storagedynamof3574dc7Name"
+      "Default": "storageworkspacesdbName"
     },
-    "storagedynamof3574dc7Arn": {
+    "storageworkspacesdbArn": {
       "Type": "String",
-      "Default": "storagedynamof3574dc7Arn"
+      "Default": "storageworkspacesdbArn"
     }
   },
   "Conditions": {
@@ -55,12 +55,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "lad3e103322",
+            "ladfunction",
             {
               "Fn::Join": [
                 "",
                 [
-                  "lad3e103322",
+                  "ladfunction",
                   "-",
                   {
                     "Ref": "env"
@@ -97,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "ladLambdaRole513c69ea",
+            "ladLambdaRolef9d9e036",
             {
               "Fn::Join": [
                 "",
                 [
-                  "ladLambdaRole513c69ea",
+                  "ladLambdaRolef9d9e036",
                   "-",
                   {
                     "Ref": "env"
@@ -182,14 +182,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storagedynamof3574dc7Arn"
+                  "Ref": "storageworkspacesdbArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storagedynamof3574dc7Arn"
+                        "Ref": "storageworkspacesdbArn"
                       },
                       "index/*"
                     ]

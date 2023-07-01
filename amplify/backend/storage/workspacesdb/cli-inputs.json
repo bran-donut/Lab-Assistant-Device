@@ -1,0 +1,10 @@
+{
+  "resourceName": "workspacesdb",
+  "tableName": "workspacesdb",
+  "partitionKey": {
+    "fieldName": "name",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

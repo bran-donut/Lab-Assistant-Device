@@ -1,64 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import Layout from "../layouts/layout";
 import Pageheader from "../components/Pageheader";
 import ModuleCreationSteps from "../components/ModuleCreationSteps";
 import EnrolTable from "../components/EnrolTable";
+import { Auth, API } from "aws-amplify";
 
 export default function CreateModule() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  // DUMMY DATA
-  const [accountData, setAccountData] = useState([
-    {
-      studentName: "brandon chan",
-      studentId: "2101339",
-      studentEmail: "2101339@sit.singaporetech.edu.sg",
-      tags: ["Tag1", "Tag2", "P1"],
-    },
-    {
-      studentName: "brandon lim",
-      studentId: "12312",
-      studentEmail: "1231@sit.singaporetech.edu.sg",
-      tags: ["Tag1", "Tag2", "P1"],
-    },
-    {
-      studentName: "kevin thom",
-      studentId: "32131",
-      studentEmail: "12312@sit.singaporetech.edu.sg",
-      tags: ["Tag1", "Tag2", "P1"],
-    },
-    {
-      studentName: "chai hong",
-      studentId: "421",
-      studentEmail: "41214@sit.singaporetech.edu.sg",
-      tags: ["Tag1", "Tag2", "P1"],
-    },
-    {
-      studentName: "chun guan",
-      studentId: "31231",
-      studentEmail: "12@sit.singaporetech.edu.sg",
-      tags: ["Tag1", "Tag2", "P1"],
-    },
-    {
-      studentName: "alford chong",
-      studentId: "412412",
-      studentEmail: "421@sit.singaporetech.edu.sg",
-      tags: ["Tag1", "Tag2", "P1"],
-    },
-    {
-      studentName: "prof fauzi",
-      studentId: "32131",
-      studentEmail: "3123@sit.singaporetech.edu.sg",
-      tags: ["Tag1", "Tag2", "P1"],
-    },
-    {
-      studentName: "wen jun",
-      studentId: "41241",
-      studentEmail: "42414121@sit.singaporetech.edu.sg",
-      tags: ["Tag1", "Tag2", "P1"],
-    },
-  ]);
+  const [studentData, setStudentData] = useState([]);
+
+  useEffect(() => {
+    let nextToken;
+
+    async function listStudents(limit) {
+      let apiName = "AdminQueries";
+      let path = "/listUsersInGroup";
+      let myInit = {
+        queryStringParameters: {
+          groupname: "Students",
+          limit: limit,
+          token: nextToken,
+        },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${(await Auth.currentSession())
+            .getAccessToken()
+            .getJwtToken()}`,
+        },
+      };
+      const { NextToken, ...rest } = await API.get(apiName, path, myInit);
+      nextToken = NextToken;
+      return rest;
+    }
+
+    listStudents(10)
+      .then((result) => {
+        const users = result.Users; // Extract the Users array from the result object
+        setStudentData(users); // Set the Users array as the value of studentData
+        console.log("studentData array", studentData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   //   const handleSubmit = (e) => {
   //     e.preventDefault();
@@ -85,7 +70,7 @@ export default function CreateModule() {
       />
       <ModuleCreationSteps step="2" />
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
-        <EnrolTable accountData={accountData} />
+        <EnrolTable studentData={studentData} />
       </section>
     </>
   );

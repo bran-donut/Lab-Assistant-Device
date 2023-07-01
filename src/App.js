@@ -23,7 +23,6 @@ import CreateModule from "./pages/CreateModule";
 import EnrolStudents from "./pages/EnrolStudents";
 import "@aws-amplify/ui-react/styles.css";
 
-
 function App() {
   const components = {
     Header() {
@@ -94,7 +93,10 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home user={user} />} />
                 <Route path="/manage-modules" element={<ManageModules />} />
-                <Route path="/manage-modules/create" element={<CreateModule />} />
+                <Route
+                  path="/manage-modules/create"
+                  element={<CreateModule />}
+                />
                 <Route
                   path="/manage-modules/enrol-students"
                   element={<EnrolStudents />}

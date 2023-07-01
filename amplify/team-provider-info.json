@@ -13,20 +13,26 @@
       "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-lad-dev-141058-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
+      "auth": {
+        "lade728908a": {},
+        "userPoolGroups": {}
+      },
       "function": {
-        "lad3e103322": {
+        "ladfunction": {
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",
-          "s3Key": "amplify-builds/lad3e103322-2b5947774c6a516c304b-build.zip"
+          "s3Key": "amplify-builds/ladfunction-456c454f6f716d72574d-build.zip"
+        },
+        "AdminQueries8dc1fec9": {
+          "deploymentBucketName": "amplify-lad-dev-141058-deployment",
+          "s3Key": "amplify-builds/AdminQueries8dc1fec9-6d6356664b3554514778-build.zip"
         }
       },
-      "storage": {
-        "dynamof3574dc7": {}
-      },
       "api": {
-        "api07394908": {}
+        "ladapi": {},
+        "AdminQueries": {}
       },
-      "auth": {
-        "lade728908a": {}
+      "storage": {
+        "workspacesdb": {}
       }
     }
   }

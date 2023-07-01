@@ -1,6 +1,11 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "api07394908": {
+    "AdminQueries": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
+    },
+    "ladapi": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
@@ -15,10 +20,21 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolArn": "string",
       "UserPoolId": "string",
       "UserPoolName": "string"
+    },
+    "userPoolGroups": {
+      "StaffsGroupRole": "string",
+      "StudentsGroupRole": "string"
     }
   },
   "function": {
-    "lad3e103322": {
+    "AdminQueries8dc1fec9": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "ladfunction": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
@@ -27,7 +43,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "dynamof3574dc7": {
+    "workspacesdb": {
       "Arn": "string",
       "Name": "string",
       "PartitionKeyName": "string",
