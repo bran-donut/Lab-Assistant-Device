@@ -25,7 +25,9 @@ export default function EnrolTable({ studentData }) {
   // Get the data for the current page
   const currentPageData = studentData
     .filter((student) =>
-    student["Attributes"][2].Value.toLowerCase().includes(searchQuery.toLowerCase())
+      student["Attributes"][2].Value.toLowerCase().includes(
+        searchQuery.toLowerCase()
+      )
     )
     .slice(startIndex, endIndex);
 
@@ -109,19 +111,20 @@ export default function EnrolTable({ studentData }) {
               </tr>
             </thead>
             <tbody>
-              {currentPageData.map((student, index) => (
-                <tr key={index}>
-                  <td className="px-6 py-4 font-medium text-gray-900">
-                    {student["Attributes"][2].Value}
-                  </td>
-                  <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  {student["Username"]}
-                  </td>
-                  <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  {student["Attributes"][3].Value}
-                  </td>
-                  <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                  {/* {account["tags"].map((tag, index) => (
+              {currentPageData ? (
+                currentPageData.map((student, index) => (
+                  <tr key={index}>
+                    <td className="px-6 py-4 font-medium text-gray-900">
+                      {student["Attributes"][2].Value}
+                    </td>
+                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                      {student["Username"]}
+                    </td>
+                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                      {student["Attributes"][3].Value}
+                    </td>
+                    <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                      {/* {account["tags"].map((tag, index) => (
                     
                     <span
                       key={index}
@@ -130,20 +133,23 @@ export default function EnrolTable({ studentData }) {
                         {tag}
                         </span>
                         ))} */}
-                  </td>
-                  <td className="flex justify-end gap-5 px-6 py-4">
-                    <button
-                      className="flex items-center px-1 py-1 text-sm font-medium text-black hover:text-blue-600 focus:outline-none"
-                      onClick={() => openModal(index)}
-                    >
-                      <PencilIcon className="w-5 h-5 " />
-                    </button>
-                    <button className="flex items-center px-1 py-1 text-sm font-medium text-black hover:text-red-600 focus:outline-none">
-                      <TrashIcon className="w-5 h-5 " />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="flex justify-end gap-5 px-6 py-4">
+                      <button
+                        className="flex items-center px-1 py-1 text-sm font-medium text-black hover:text-blue-600 focus:outline-none"
+                        onClick={() => openModal(index)}
+                      >
+                        <PencilIcon className="w-5 h-5 " />
+                      </button>
+                      <button className="flex items-center px-1 py-1 text-sm font-medium text-black hover:text-red-600 focus:outline-none">
+                        <TrashIcon className="w-5 h-5 " />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr><td>No data found</td></tr>
+              )}
             </tbody>
           </table>
         </div>

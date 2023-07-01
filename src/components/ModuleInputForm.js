@@ -19,14 +19,26 @@ export default function ModuleInputForm({
       <p className="font-normal text-gray-600">
         Pick a name and an optional colour tag
       </p>
+      <p className="font-semibold text-gray-800">Module Code</p>
+      <input
+        id="moduleName"
+        type="text"
+        placeholder="Input module code Ex. ICT1001"
+        defaultValue={formData.name ? formData.name : ""}
+        onChange={(e) => {
+          setFormData({ ...formData, code: e.target.value });
+        }}
+        className="p-2 border border-gray-300 rounded-lg"
+        required
+      />
       <p className="font-semibold text-gray-800">Module Name</p>
       <input
         id="moduleName"
         type="text"
-        placeholder="Input module name"
+        placeholder="Input module name Ex. Introduction to Computing"
         defaultValue={formData.name ? formData.name : ""}
         onChange={(e) => {
-          setFormData({ ...formData, moduleName: e.target.value });
+          setFormData({ ...formData, name: e.target.value });
         }}
         className="p-2 border border-gray-300 rounded-lg"
         required
@@ -35,7 +47,7 @@ export default function ModuleInputForm({
       <DropdownInput
         options={["None", "Red", "Blue", "Green"]}
         onChange={(e) => {
-          setFormData({ ...formData, moduleColor: e.target.value });
+          setFormData({ ...formData, color: e.target.value.toLowerCase() });
         }}
       />
       <div className="flex gap-3 mt-2">

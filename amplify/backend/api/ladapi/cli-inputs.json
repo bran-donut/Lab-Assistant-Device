@@ -1,9 +1,9 @@
 {
   "version": 1,
   "paths": {
-    "/workspaces": {
-      "name": "/workspaces",
-      "lambdaFunction": "ladfunction",
+    "/modules": {
+      "name": "/modules",
+      "lambdaFunction": "ladmodulesfunction",
       "permissions": {
         "setting": "private",
         "auth": [

@@ -1,18 +1,31 @@
-import { useState } from "react";
-import Layout from "../layouts/layout";
+import { useState, useEffect } from "react";
 import ModuleCard from "../components/ModuleCard";
 import Pageheader from "../components/Pageheader";
+import { API } from "aws-amplify";
 
 export default function ManageModules() {
-  const [moduleData, setModuleData] = useState([
-    {
-        // DUMMY DATA
-      moduleId: "ICT2103",
-      moduleName: "Embedded Systems",
-      labs: ["lab1", "lab2"],
-      students: ["brandon", "james"],
-    },
-  ]);
+  const [moduleData, setModuleData] = useState([]);
+
+  useEffect(() => {
+    API.get("ladapi", "/modules/code", {})
+      .then((result) => {
+        setModuleData(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const deleteModule = (code) => {
+    API.del("ladapi", `/modules/code/${code}`, {
+    })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <>
@@ -25,7 +38,12 @@ export default function ManageModules() {
       />
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
         {moduleData.map((e, i) => (
-          <ModuleCard key={i} moduleData={moduleData[i]} editRoute={"/"} />
+          <ModuleCard
+            key={i}
+            moduleData={moduleData[i]}
+            editRoute={`/manage-modules/edit/${moduleData[i].code}`}
+            deleteModule={deleteModule}
+          />
         ))}
       </section>
     </>

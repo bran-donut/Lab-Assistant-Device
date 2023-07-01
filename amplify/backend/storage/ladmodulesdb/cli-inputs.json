@@ -1,8 +1,8 @@
 {
-  "resourceName": "workspacesdb",
-  "tableName": "workspacesdb",
+  "resourceName": "ladmodulesdb",
+  "tableName": "ladmodulesdb",
   "partitionKey": {
-    "fieldName": "name",
+    "fieldName": "code",
     "fieldType": "string"
   },
   "gsi": [],

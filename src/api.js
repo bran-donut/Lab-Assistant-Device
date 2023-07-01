@@ -1,4 +1,6 @@
-import { Amplify, Auth, API } from 'aws-amplify';
+import { Amplify, Auth, API } from "aws-amplify";
+
+// AWS Amplify AdminQueries API
 
 export const addToGroup = async () => {
   let apiName = "AdminQueries";
@@ -15,9 +17,9 @@ export const addToGroup = async () => {
         .getJwtToken()}`,
     },
   };
-  console.log (Auth.currentSession())
+  console.log(Auth.currentSession());
   return await API.post(apiName, path, myInit);
-}
+};
 
 let nextToken;
 
@@ -26,7 +28,7 @@ export const listStudents = async (limit) => {
   let path = "/listUsersInGroup";
   let myInit = {
     queryStringParameters: {
-      groupname: "Student",
+      groupname: "Students",
       limit: limit,
       token: nextToken,
     },
@@ -42,8 +44,34 @@ export const listStudents = async (limit) => {
   return rest;
 };
 
-export const getWorkspace = async () => {
-  API.get("ladapi", "/workspaces/name", {})
+// DYNAMODB API
+
+export const getModule = async () => {
+  API.get("ladapi", "/modules/code", {})
+    .then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getModuleByCode = async (code) => {
+  return API.get("ladapi", `/modules/object/${code}`, {})
+    .then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
+
+export const createModule = async (data) => {
+  API.post("ladapi", "/modules", {
+    body: data,
+  })
     .then((result) => {
       console.log(result);
     })

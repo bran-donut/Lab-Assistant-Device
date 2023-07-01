@@ -18,13 +18,13 @@
         "userPoolGroups": {}
       },
       "function": {
-        "ladfunction": {
-          "deploymentBucketName": "amplify-lad-dev-141058-deployment",
-          "s3Key": "amplify-builds/ladfunction-456c454f6f716d72574d-build.zip"
-        },
         "AdminQueries8dc1fec9": {
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",
           "s3Key": "amplify-builds/AdminQueries8dc1fec9-6d6356664b3554514778-build.zip"
+        },
+        "ladmodulesfunction": {
+          "deploymentBucketName": "amplify-lad-dev-141058-deployment",
+          "s3Key": "amplify-builds/ladmodulesfunction-6d716976587374735077-build.zip"
         }
       },
       "api": {
@@ -32,7 +32,7 @@
         "AdminQueries": {}
       },
       "storage": {
-        "workspacesdb": {}
+        "ladmodulesdb": {}
       }
     }
   }

@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import ModuleInputForm from "../components/ModuleInputForm";
 import Pageheader from "../components/Pageheader";
-import ModuleCreationSteps from "../components/ModuleCreationSteps";
-import { createModule } from "../api";
+import { useParams } from "react-router-dom";
+import { API } from "aws-amplify";
+import { getModuleByCode } from "../api";
 
-export default function CreateModule() {
+export default function EditModule() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { moduleId } = useParams();
   const [formData, setFormData] = useState([
     {
       code: "",
@@ -17,9 +19,21 @@ export default function CreateModule() {
     },
   ]);
 
+  useEffect(() => {
+    API.get(`ladapi`, `/modules/code/${moduleId}`, {})
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      getModuleByCode("ICT2103");
+  }, []);
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    createModule(formData);
 
     //Nav to next step
     setSearchParams("");
@@ -37,16 +51,15 @@ export default function CreateModule() {
         breadCrumbItems={[
           "Home",
           "Manage Module Workspaces",
-          "Create New Module",
+          "Edit Module",
         ]}
-        heading={"Create New Module"}
-        description={"Creating a new module"}
+        heading={"Editing Module"}
+        description={"Edit module"}
         buttonText={"Manage Student List"}
         buttonRoute={"/"}
       />
-      <ModuleCreationSteps step="1"/>
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
-        <ModuleInputForm formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} handleReturn={handleReturn}/>
+        {/* <ModuleInputForm formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} handleReturn={handleReturn}/> */}
       </section>
     </>
   );

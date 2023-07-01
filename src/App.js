@@ -22,6 +22,7 @@ import ManageModules from "./pages/ManageModules";
 import CreateModule from "./pages/CreateModule";
 import EnrolStudents from "./pages/EnrolStudents";
 import "@aws-amplify/ui-react/styles.css";
+import EditModule from "./pages/EditModule";
 
 function App() {
   const components = {
@@ -97,6 +98,7 @@ function App() {
                   path="/manage-modules/create"
                   element={<CreateModule />}
                 />
+                <Route path="/manage-modules/edit/:moduleId" element={<EditModule />} />
                 <Route
                   path="/manage-modules/enrol-students"
                   element={<EnrolStudents />}
