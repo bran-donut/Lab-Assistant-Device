@@ -64,7 +64,7 @@ export default function ModuleInputForm({
             type="submit"
             className="flex-1 px-5 py-2 text-white transition-colors duration-150 bg-black rounded-md hover:bg-black/70"
           >
-            Next Step
+            Submit
           </button>
         </div>
       </form>

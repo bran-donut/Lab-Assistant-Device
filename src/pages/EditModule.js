@@ -37,7 +37,7 @@ export default function EditModule() {
 
     //Nav to next step
     setSearchParams("");
-    navigate("/manage-modules/enrol-students");
+    navigate("/manage-modules");
   };
 
   const handleReturn = () => {
