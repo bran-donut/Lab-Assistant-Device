@@ -16,13 +16,15 @@ import {
   useAuthenticator,
   Button,
 } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 import Layout from "./layouts/layout";
 import Home from "./pages/Home";
 import ManageModules from "./pages/ManageModules";
 import CreateModule from "./pages/CreateModule";
 import EnrolStudents from "./pages/EnrolStudents";
-import "@aws-amplify/ui-react/styles.css";
 import EditModule from "./pages/EditModule";
+import ViewModule from "./pages/ViewModule";
+import CreateLab from "./pages/CreateLab";
 
 function App() {
   const components = {
@@ -99,8 +101,10 @@ function App() {
                   element={<CreateModule />}
                 />
                 <Route path="/manage-modules/edit/:moduleId" element={<EditModule />} />
+                <Route path="/manage-modules/:moduleId" element={<ViewModule />} />
+                <Route path="/manage-modules/:moduleId/create" element={<CreateLab />} />
                 <Route
-                  path="/manage-modules/enrol-students"
+                  path="/manage-modules/:moduleId/enrol-students"
                   element={<EnrolStudents />}
                 />
               </Routes>

@@ -30,7 +30,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "ladmodulesfunction"
+          "resourceName": "ladmodulefunction"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -94,7 +94,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "ladmodulesfunction": {
+    "ladmodulefunction": {
       "build": true,
       "dependsOn": [
         {
@@ -107,7 +107,7 @@
             "Arn"
           ],
           "category": "storage",
-          "resourceName": "ladmodulesdb"
+          "resourceName": "ladmoduledb"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -131,25 +131,25 @@
         }
       ]
     },
-    "AMPLIFY_function_ladmodulesfunction_deploymentBucketName": {
+    "AMPLIFY_function_ladmodulefunction_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "ladmodulesfunction"
+          "resourceName": "ladmodulefunction"
         }
       ]
     },
-    "AMPLIFY_function_ladmodulesfunction_s3Key": {
+    "AMPLIFY_function_ladmodulefunction_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "ladmodulesfunction"
+          "resourceName": "ladmodulefunction"
         }
       ]
     }
   },
   "storage": {
-    "ladmodulesdb": {
+    "ladmoduledb": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     }

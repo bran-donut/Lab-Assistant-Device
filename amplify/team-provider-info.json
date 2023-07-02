@@ -20,19 +20,19 @@
       "function": {
         "AdminQueries8dc1fec9": {
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",
-          "s3Key": "amplify-builds/AdminQueries8dc1fec9-6d6356664b3554514778-build.zip"
+          "s3Key": "amplify-builds/AdminQueries8dc1fec9-56784d37723071527166-build.zip"
         },
-        "ladmodulesfunction": {
+        "ladmodulefunction": {
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",
-          "s3Key": "amplify-builds/ladmodulesfunction-6d716976587374735077-build.zip"
+          "s3Key": "amplify-builds/ladmodulefunction-3554354f7672595a4248-build.zip"
         }
       },
       "api": {
-        "ladapi": {},
-        "AdminQueries": {}
+        "AdminQueries": {},
+        "ladapi": {}
       },
       "storage": {
-        "ladmodulesdb": {}
+        "ladmoduledb": {}
       }
     }
   }

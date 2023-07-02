@@ -1,8 +1,8 @@
 import React from "react";
 
-const ModuleCreationSteps = ({ step }) => {
+const LabCreationSteps = ({ step }) => {
   return (
-    <div className="flex items-center justify-center w-full pt-5 pb-1 gap-20">
+    <div className="flex items-center justify-center w-full gap-20 p-4">
       <div className={`flex ${step === "1" ? " text-black" : "text-black/40"}`}>
         <span
           className={`flex items-center justify-center w-8 h-8 mr-2 border-2 border-[#1E293B] rounded-full ${
@@ -18,8 +18,8 @@ const ModuleCreationSteps = ({ step }) => {
           </span>
         </span>
         <div>
-          <span>Creating Module</span>
-          <p>Naming and Colour Tag</p>
+          <span>Creating Lab</span>
+          <p>Code and Name</p>
         </div>
       </div>
       <div className={`flex ${step === "2" ? " text-black" : "text-black/40"}`}>
@@ -38,7 +38,7 @@ const ModuleCreationSteps = ({ step }) => {
         </span>
         <div>
           <span>Enrol Students</span>
-          <p>Add students to module</p>
+          <p>Add students to lab</p>
         </div>
       </div>
       <div className={`flex ${step === "3" ? " text-black" : "text-black/40"}`}>
@@ -64,4 +64,4 @@ const ModuleCreationSteps = ({ step }) => {
   );
 };
 
-export default ModuleCreationSteps;
+export default LabCreationSteps;

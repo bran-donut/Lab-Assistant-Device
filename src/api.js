@@ -43,39 +43,3 @@ export const listStudents = async (limit) => {
   nextToken = NextToken;
   return rest;
 };
-
-// DYNAMODB API
-
-export const getModule = async () => {
-  API.get("ladapi", "/modules/code", {})
-    .then((result) => {
-      return result;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-export const getModuleByCode = async (code) => {
-  return API.get("ladapi", `/modules/object/${code}`, {})
-    .then((result) => {
-      return result;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-
-
-export const createModule = async (data) => {
-  API.post("ladapi", "/modules", {
-    body: data,
-  })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};

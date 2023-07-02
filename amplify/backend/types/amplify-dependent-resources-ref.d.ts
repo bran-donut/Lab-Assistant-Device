@@ -34,7 +34,7 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
-    "ladmodulesfunction": {
+    "ladmodulefunction": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
@@ -43,7 +43,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "ladmodulesdb": {
+    "ladmoduledb": {
       "Arn": "string",
       "Name": "string",
       "PartitionKeyName": "string",

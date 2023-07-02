@@ -6,26 +6,26 @@ import { API } from "aws-amplify";
 export default function ManageModules() {
   const [moduleData, setModuleData] = useState([]);
 
-  useEffect(() => {
-    API.get("ladapi", "/modules/code", {})
-      .then((result) => {
-        setModuleData(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const deleteModule = (code) => {
-    API.del("ladapi", `/modules/code/${code}`, {
-    })
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const fetchModule = async () => {
+    API.get('ladapi', '/modules', {}).then(result => {
+      const modules = JSON.parse(result.body);
+      setModuleData(modules);
+     }).catch(err => {
+      console.log(err);
+     })
   };
+
+  const removeModule = async (id) => {
+    API.del('ladapi', `/modules/${id}`, {}).then(result => {
+      console.log(result);
+    }).catch(err => {
+      console.log(err);
+    })
+  };
+
+  useEffect(() => {
+    fetchModule();
+  }, []);
 
   return (
     <>
@@ -41,8 +41,9 @@ export default function ManageModules() {
           <ModuleCard
             key={i}
             moduleData={moduleData[i]}
-            editRoute={`/manage-modules/edit/${moduleData[i].code}`}
-            deleteModule={deleteModule}
+            editRoute={`/manage-modules/edit/${moduleData[i].id}`}
+            deleteModule={removeModule}
+            viewRoute={`/manage-modules/${moduleData[i].id}`}
           />
         ))}
       </section>

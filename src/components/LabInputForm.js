@@ -1,10 +1,9 @@
 import React from "react";
-import { DropdownInput } from "./DropdownInput";
 
-export default function ModuleInputForm({
+export default function LabInputForm({
   formData,
   setFormData,
-  module,
+  lab,
   handleSubmit,
   handleReturn,
 }) {
@@ -15,16 +14,16 @@ export default function ModuleInputForm({
         onSubmit={handleSubmit}
       >
         <h1 className="text-xl font-semibold">
-          {module ? `Editing ${module}` : "Create module"}
+          {lab ? `Editing ${lab}` : "Create lab"}
         </h1>
         <p className="font-normal text-gray-600">
-          Pick a name and an optional colour tag
+          Input the lab code and name
         </p>
-        <p className="font-semibold text-gray-800">Module Code</p>
+        <p className="font-semibold text-gray-800">Lab Code</p>
         <input
-          id="moduleCode"
+          id="labnCode"
           type="text"
-          placeholder="Input module code Ex. ICT1001"
+          placeholder="Input lab code Ex. P1"
           defaultValue={formData.code ? formData.code : ""}
           onChange={(e) => {
             setFormData({ ...formData, code: e.target.value });
@@ -32,24 +31,17 @@ export default function ModuleInputForm({
           className="p-2 border border-gray-300 rounded-lg"
           required
         />
-        <p className="font-semibold text-gray-800">Module Name</p>
+        <p className="font-semibold text-gray-800">Lab Name</p>
         <input
-          id="moduleName"
+          id="labName"
           type="text"
-          placeholder="Input module name Ex. Introduction to Computing"
+          placeholder="Provide lab name Ex. Fauzi's lesson"
           defaultValue={formData.name ? formData.name : ""}
           onChange={(e) => {
             setFormData({ ...formData, name: e.target.value });
           }}
           className="p-2 border border-gray-300 rounded-lg"
           required
-        />
-        <p className="font-semibold text-gray-800">Module Title Highlight</p>
-        <DropdownInput
-          options={["None", "Red", "Blue", "Green"]}
-          onChange={(e) => {
-            setFormData({ ...formData, color: e.target.value.toLowerCase() });
-          }}
         />
         <div className="flex gap-3 mt-2">
           <button
