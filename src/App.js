@@ -22,7 +22,6 @@ import Home from "./pages/Home";
 import ManageModules from "./pages/ManageModules";
 import CreateModule from "./pages/CreateModule";
 import EnrolStudents from "./pages/EnrolStudents";
-import EditModule from "./pages/EditModule";
 import ViewModule from "./pages/ViewModule";
 import CreateLab from "./pages/CreateLab";
 
@@ -100,11 +99,10 @@ function App() {
                   path="/manage-modules/create"
                   element={<CreateModule />}
                 />
-                <Route path="/manage-modules/edit/:moduleId" element={<EditModule />} />
-                <Route path="/manage-modules/:moduleId" element={<ViewModule />} />
-                <Route path="/manage-modules/:moduleId/create" element={<CreateLab />} />
+                <Route path="/manage-modules/:moduleCode" element={<ViewModule />} />
+                <Route path="/manage-modules/:moduleCode/create" element={<CreateLab />} />
                 <Route
-                  path="/manage-modules/:moduleId/enrol-students"
+                  path="/manage-modules/:moduleCode/enrol-students"
                   element={<EnrolStudents />}
                 />
               </Routes>

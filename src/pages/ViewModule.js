@@ -5,22 +5,32 @@ import { useParams } from "react-router-dom";
 import { API } from "aws-amplify";
 
 export default function ViewModule() {
-  const { moduleId } = useParams();
-  const [moduleData, setModuleData] = useState([]);
+  const { moduleCode } = useParams();
+  const [moduleData, setModuleData] = useState();
+
+  const fetchModuleData = async () => {
+    API.get("ladappapi", `/modules/${moduleCode}`, {})
+      .then((result) => {
+        setModuleData(result.body);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const removeLab = async (code, lab) => {
+    API.del("ladappapi", `/modules/${code}/${lab}`, {})
+      .then((result) => {
+        console.log(result);
+        fetchModuleData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    const fetchModule = async () => {
-      API.get("ladapi", `/modules/${moduleId}`, {})
-        .then((result) => {
-          const modules = JSON.parse(result.body);
-          setModuleData(modules);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    fetchModule();
+    fetchModuleData();
   }, []);
 
   return (
@@ -29,15 +39,24 @@ export default function ViewModule() {
         breadCrumbItems={[
           "Home",
           "Manage Module Workspaces",
-          `${moduleData.code}`,
+          `${moduleCode ? moduleCode : ""}`,
         ]}
-        heading={`Manage Module ${moduleData.code}`}
+        heading={`Manage Module ${moduleCode ? moduleCode : ""}`}
         description={"Displaying all module workspaces"}
         buttonText={"Create New Lab"}
-        buttonRoute={`/manage-modules/${moduleData.id}/create`}
+        buttonRoute={`/manage-modules/${moduleCode ? moduleCode : ""}/create`}
       />
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
-        <LabCard labData={moduleData.labs} />
+        {moduleData
+          ? moduleData.lab.map((e, i) => (
+              <LabCard
+                moduleCode={moduleCode}
+                labCode={moduleData.lab[i]}
+                viewRoute={`/manage-modules/${moduleCode}/${moduleData.lab[i]}`}
+                deleteLab={removeLab}
+              />
+            ))
+          : "No labs found"}
       </section>
     </>
   );

@@ -10,16 +10,15 @@ import { useParams } from "react-router-dom";
 export default function CreateModule() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { moduleId } = useParams();
+  const { moduleCode } = useParams();
   const [moduleData, setModuleData] = useState([]);
   const [studentData, setStudentData] = useState([]);
 
   useEffect(() => {
     const fetchModule = async () => {
-      API.get("ladapi", `/modules/${moduleId}`, {})
+      API.get("ladappapi", `/modules/${moduleCode}`, {})
         .then((result) => {
-          const modules = JSON.parse(result.body);
-          setModuleData(modules);
+          setModuleData(result.body);
         })
         .catch((err) => {
           console.log(err);
@@ -40,7 +39,7 @@ export default function CreateModule() {
   return (
     <>
       <Pageheader
-        breadCrumbItems={["Home", "Manage Module Workspaces", `${moduleData.code}`, "Enrol Students"]}
+        breadCrumbItems={["Home", "Manage Module Workspaces", `${moduleCode}`, "Enrol Students"]}
         heading={"Enrol students to the new lab"}
         description={"Creating a new module"}
         buttonText={"Manage Student List"}

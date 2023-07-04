@@ -3,7 +3,7 @@
   "paths": {
     "/modules": {
       "name": "/modules",
-      "lambdaFunction": "ladmodulefunction",
+      "lambdaFunction": "ladmodulesfunction",
       "permissions": {
         "setting": "protected",
         "auth": [

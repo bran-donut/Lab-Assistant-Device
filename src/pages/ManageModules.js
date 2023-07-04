@@ -7,17 +7,18 @@ export default function ManageModules() {
   const [moduleData, setModuleData] = useState([]);
 
   const fetchModule = async () => {
-    API.get('ladapi', '/modules', {}).then(result => {
-      const modules = JSON.parse(result.body);
+    API.get('ladappapi', '/modules', {}).then(result => {
+      const modules = result.body;
       setModuleData(modules);
      }).catch(err => {
       console.log(err);
      })
   };
 
-  const removeModule = async (id) => {
-    API.del('ladapi', `/modules/${id}`, {}).then(result => {
+  const removeModule = async (code) => {
+    API.del('ladappapi', `/modules/${code}`, {}).then(result => {
       console.log(result);
+      fetchModule();
     }).catch(err => {
       console.log(err);
     })
@@ -26,6 +27,7 @@ export default function ManageModules() {
   useEffect(() => {
     fetchModule();
   }, []);
+  
 
   return (
     <>
@@ -41,9 +43,8 @@ export default function ManageModules() {
           <ModuleCard
             key={i}
             moduleData={moduleData[i]}
-            editRoute={`/manage-modules/edit/${moduleData[i].id}`}
             deleteModule={removeModule}
-            viewRoute={`/manage-modules/${moduleData[i].id}`}
+            viewRoute={`/manage-modules/${moduleData[i].code}`}
           />
         ))}
       </section>

@@ -5,7 +5,7 @@ export type AmplifyDependentResourcesAttributes = {
       "ApiName": "string",
       "RootUrl": "string"
     },
-    "ladapi": {
+    "ladappapi": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
@@ -34,7 +34,7 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     },
-    "ladmodulefunction": {
+    "ladmodulesfunction": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
@@ -43,12 +43,14 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "ladmoduledb": {
+    "ladmodulesdb": {
       "Arn": "string",
       "Name": "string",
       "PartitionKeyName": "string",
       "PartitionKeyType": "string",
       "Region": "string",
+      "SortKeyName": "string",
+      "SortKeyType": "string",
       "StreamArn": "string"
     }
   }

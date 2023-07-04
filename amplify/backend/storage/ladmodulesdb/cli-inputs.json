@@ -1,0 +1,14 @@
+{
+  "resourceName": "ladmodulesdb",
+  "tableName": "ladmodulesdb",
+  "partitionKey": {
+    "fieldName": "code",
+    "fieldType": "string"
+  },
+  "sortKey": {
+    "fieldName": "lab",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

@@ -16,13 +16,13 @@
     "s3Key": {
       "Type": "String"
     },
-    "storageladmoduledbName": {
+    "storageladmodulesdbName": {
       "Type": "String",
-      "Default": "storageladmoduledbName"
+      "Default": "storageladmodulesdbName"
     },
-    "storageladmoduledbArn": {
+    "storageladmodulesdbArn": {
       "Type": "String",
-      "Default": "storageladmoduledbArn"
+      "Default": "storageladmodulesdbArn"
     }
   },
   "Conditions": {
@@ -55,12 +55,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "ladmodulefunction",
+            "ladmodulesfunction",
             {
               "Fn::Join": [
                 "",
                 [
-                  "ladmodulefunction",
+                  "ladmodulesfunction",
                   "-",
                   {
                     "Ref": "env"
@@ -97,12 +97,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "ladLambdaRole7a6b4ed6",
+            "ladLambdaRole74951602",
             {
               "Fn::Join": [
                 "",
                 [
-                  "ladLambdaRole7a6b4ed6",
+                  "ladLambdaRole74951602",
                   "-",
                   {
                     "Ref": "env"
@@ -182,14 +182,14 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storageladmoduledbArn"
+                  "Ref": "storageladmodulesdbArn"
                 },
                 {
                   "Fn::Join": [
                     "/",
                     [
                       {
-                        "Ref": "storageladmoduledbArn"
+                        "Ref": "storageladmodulesdbArn"
                       },
                       "index/*"
                     ]

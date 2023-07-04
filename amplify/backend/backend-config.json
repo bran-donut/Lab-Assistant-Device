@@ -22,7 +22,7 @@
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
     },
-    "ladapi": {
+    "ladappapi": {
       "dependsOn": [
         {
           "attributes": [
@@ -30,7 +30,7 @@
             "Arn"
           ],
           "category": "function",
-          "resourceName": "ladmodulefunction"
+          "resourceName": "ladmodulesfunction"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -94,7 +94,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "ladmodulefunction": {
+    "ladmodulesfunction": {
       "build": true,
       "dependsOn": [
         {
@@ -107,7 +107,7 @@
             "Arn"
           ],
           "category": "storage",
-          "resourceName": "ladmoduledb"
+          "resourceName": "ladmodulesdb"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -131,25 +131,25 @@
         }
       ]
     },
-    "AMPLIFY_function_ladmodulefunction_deploymentBucketName": {
+    "AMPLIFY_function_ladmodulesfunction_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "ladmodulefunction"
+          "resourceName": "ladmodulesfunction"
         }
       ]
     },
-    "AMPLIFY_function_ladmodulefunction_s3Key": {
+    "AMPLIFY_function_ladmodulesfunction_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "ladmodulefunction"
+          "resourceName": "ladmodulesfunction"
         }
       ]
     }
   },
   "storage": {
-    "ladmoduledb": {
+    "ladmodulesdb": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     }

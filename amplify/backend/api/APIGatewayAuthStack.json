@@ -11,7 +11,7 @@
     "env": {
       "Type": "String"
     },
-    "ladapi": {
+    "ladappapi": {
       "Type": "String"
     }
   },
@@ -52,7 +52,7 @@
                       },
                       ":",
                       {
-                        "Ref": "ladapi"
+                        "Ref": "ladappapi"
                       },
                       "/",
                       {
@@ -82,7 +82,7 @@
                       },
                       ":",
                       {
-                        "Ref": "ladapi"
+                        "Ref": "ladappapi"
                       },
                       "/",
                       {
@@ -135,7 +135,7 @@
                       },
                       ":",
                       {
-                        "Ref": "ladapi"
+                        "Ref": "ladappapi"
                       },
                       "/",
                       {
@@ -165,7 +165,7 @@
                       },
                       ":",
                       {
-                        "Ref": "ladapi"
+                        "Ref": "ladappapi"
                       },
                       "/",
                       {

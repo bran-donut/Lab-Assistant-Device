@@ -51,6 +51,18 @@ export default function ModuleInputForm({
             setFormData({ ...formData, color: e.target.value.toLowerCase() });
           }}
         />
+                <p className="font-semibold text-gray-800">Lab Name</p>
+        <input
+          id="lab"
+          type="text"
+          placeholder="Input lab code Ex. P1"
+          defaultValue={formData.lab ? formData.lab : ""}
+          onChange={(e) => {
+            setFormData({ ...formData, lab: e.target.value });
+          }}
+          className="p-2 border border-gray-300 rounded-lg"
+          required
+        />
         <div className="flex gap-3 mt-2">
           <button
             type="button"

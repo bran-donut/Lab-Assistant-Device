@@ -8,61 +8,78 @@ import LabInputForm from "../components/LabInputForm";
 
 export default function CreateLab() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { moduleId } = useParams();
+  const { moduleCode } = useParams();
   const navigate = useNavigate();
-  const [moduleData, setModuleData] = useState([]);
-  const [formData, setFormData] = useState(
-    {
-      code: "",
-      name: "",
-      color: "",
-      labs: [],
-    },
-  );
+  const [moduleData, setModuleData] = useState();
+  const [formData, setFormData] = useState({
+    code: moduleCode,
+    name: moduleData ? moduleData.name : "",
+    color: moduleData ? moduleData.color : "",
+    lab: "",
+    students: [],
+  });
 
   useEffect(() => {
-    const fetchModule = async () => {
-      API.get("ladapi", `/modules/${moduleId}`, {})
+    const fetchModuleData = async () => {
+      API.get("ladappapi", `/modules/${moduleCode}`, {})
         .then((result) => {
-          const modules = JSON.parse(result.body);
-          setModuleData(modules);
+          setModuleData(result.body);
         })
         .catch((err) => {
           console.log(err);
         });
     };
 
-    fetchModule();
+    fetchModuleData();
   }, []);
 
   const createNewLab = async (data) => {
-
+    API.post("ladappapi", "/modules", {
+      body: data,
+    })
+      .then((result) => {
+        this.module = JSON.parse(result.body);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    createNewLab(formData);
 
     setSearchParams("");
-    navigate(`/manage-modules/${moduleId}/enrol-students`);
+    navigate(`/manage-modules/${moduleCode}/enrol-students`);
   };
 
   const handleReturn = () => {
     setSearchParams("");
-    navigate(`/manage-modules/${moduleId}`);
+    navigate(`/manage-modules/${moduleCode}`);
   };
 
   return (
     <>
       <Pageheader
-        breadCrumbItems={["Home", "Manage Module Workspaces", `${moduleData.code}`, "Create New Lab"]}
+        breadCrumbItems={[
+          "Home",
+          "Manage Module Workspaces",
+          `${moduleCode}`,
+          "Create New Lab",
+        ]}
         heading={"Create New Lab"}
         description={"Creating a new lab"}
         buttonText={null}
         buttonRoute={"/"}
       />
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
-        <LabCreationSteps step="1"/>
-        <LabInputForm formData={formData} setFormData={setFormData} handleSubmit={handleSubmit} handleReturn={handleReturn}/>
+        <LabCreationSteps step="1" />
+        <LabInputForm
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+          handleReturn={handleReturn}
+        />
       </section>
     </>
   );

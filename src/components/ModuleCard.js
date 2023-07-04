@@ -1,11 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { PencilIcon, TrashIcon, EyeIcon } from "@heroicons/react/outline";
+import { TrashIcon, EyeIcon } from "@heroicons/react/outline";
 import { NavLink } from "react-router-dom";
 
-export default function ModuleCard({ moduleData, viewRoute, editRoute, deleteModule }) {
+export default function ModuleCard({ moduleData, viewRoute, deleteModule }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [bgColor, setBgColor] = useState("");
+
+  console.log(moduleData)
 
   useEffect(() => {
     switch (moduleData.color) {
@@ -23,17 +25,13 @@ export default function ModuleCard({ moduleData, viewRoute, editRoute, deleteMod
     }
   }, [moduleData.color]);
 
-  const handleDelete = () => {
-    deleteModule(moduleData.id);
-    setShowDeleteModal(false);
-  };
-
   const toggleDeleteModal = () => {
     setShowDeleteModal(!showDeleteModal);
   };
   if (moduleData) {
     const handleDelete = () => {
-      deleteModule(moduleData.id);
+      deleteModule(moduleData.code);
+      setShowDeleteModal(false);
     };
 
     return (
@@ -58,12 +56,6 @@ export default function ModuleCard({ moduleData, viewRoute, editRoute, deleteMod
                   View
                 </button>
               </NavLink>
-              <NavLink to={editRoute} exact activeClassName="text-white">
-                <button className="flex items-center px-3 py-1 text-sm font-medium text-black hover:text-blue-600 focus:outline-none">
-                  <PencilIcon className="w-5 h-5 mr-1" />
-                  Edit
-                </button>
-              </NavLink>
               <button
                 className="flex items-center px-3 py-1 text-sm font-medium text-black hover:text-red-600 focus:outline-none"
                 onClick={toggleDeleteModal}
@@ -74,12 +66,9 @@ export default function ModuleCard({ moduleData, viewRoute, editRoute, deleteMod
             </div>
           </div>
           <span className="pl-2 pr-5 text-gray-500 ">
-            Number of lab: {moduleData.labs}
+            Number of labs: {moduleData.labs.length}
           </span>
-          <span className="pr-5 text-gray-500 ">
-            {/* Student Enrolled: {students.length} */}
-          </span>
-          <span className="pr-5 text-gray-500">Lab Status: Active</span>
+          <span className="pr-5 text-gray-500">Lab Names: {moduleData.labs.map((lab, i) => (<span>{lab} </span>))}</span>
         </div>
         {/* Delete Confirmation Modal */}
         {showDeleteModal && (
@@ -112,7 +101,7 @@ export default function ModuleCard({ moduleData, viewRoute, editRoute, deleteMod
                       className="px-4 py-2 text-white transition-colors duration-150 bg-red-500 rounded-md hover:bg-red-600"
                       onClick={handleDelete}
                     >
-                      Delete User
+                      Delete Module
                     </button>
                   </div>
                 </div>

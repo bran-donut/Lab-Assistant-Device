@@ -24,9 +24,9 @@ export default function LabInputForm({
           id="labnCode"
           type="text"
           placeholder="Input lab code Ex. P1"
-          defaultValue={formData.code ? formData.code : ""}
+          defaultValue={formData.lab ? formData.lab : ""}
           onChange={(e) => {
-            setFormData({ ...formData, code: e.target.value });
+            setFormData({ ...formData, lab: e.target.value });
           }}
           className="p-2 border border-gray-300 rounded-lg"
           required
@@ -36,10 +36,6 @@ export default function LabInputForm({
           id="labName"
           type="text"
           placeholder="Provide lab name Ex. Fauzi's lesson"
-          defaultValue={formData.name ? formData.name : ""}
-          onChange={(e) => {
-            setFormData({ ...formData, name: e.target.value });
-          }}
           className="p-2 border border-gray-300 rounded-lg"
           required
         />

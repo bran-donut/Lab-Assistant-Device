@@ -10,18 +10,17 @@ const AWS = require("aws-sdk");
 const awsServerlessExpressMiddleware = require("aws-serverless-express/middleware");
 const bodyParser = require("body-parser");
 const express = require("express");
-const { v4: uuidv4 } = require("uuid");
 AWS.config.update({ region: process.env.TABLE_REGION });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-let tableName = "ladmoduledb";
+let tableName = "ladmodulesdb";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + "-" + process.env.ENV;
 }
 
 const userIdPresent = false; // TODO: update in case is required to use that definition
-const partitionKeyName = "id";
+const partitionKeyName = "code";
 const partitionKeyType = "S";
 const sortKeyName = "";
 const sortKeyType = "";
@@ -53,29 +52,92 @@ const convertUrlType = (param, type) => {
   }
 };
 
+// Get modules for manage modules page
 app.get("/modules", function (request, response) {
-  let params = {
+  const params = {
     TableName: tableName,
-    limit: 100,
+    ProjectionExpression: "code, #name, lab, #color",
+    ExpressionAttributeNames: {
+      "#name": "name",
+      "#color": "color",
+    },
   };
+
   dynamodb.scan(params, (error, result) => {
     if (error) {
       response.json({ statusCode: 500, error: error.message });
     } else {
+      const modules = {};
+
+      result.Items.forEach((item) => {
+        const code = item.code;
+        const name = item.name;
+        const color = item.color;
+        const lab = item.lab;
+
+        if (!modules[code]) {
+          modules[code] = {
+            code,
+            name,
+            color,
+            labs: [],
+          };
+        }
+
+        modules[code].labs.push(lab);
+      });
+
       response.json({
         statusCode: 200,
         url: request.url,
-        body: JSON.stringify(result.Items),
+        body: Object.values(modules),
       });
     }
   });
 });
 
-app.get("/modules/:id", function (request, response) {
+// get moduleData by module code
+app.get("/modules/:code", function (request, response) {
+  let params = {
+    TableName: tableName,
+    KeyConditionExpression: "#code = :code",
+    ExpressionAttributeNames: {
+      "#code": "code",
+      "#n": "name", // Rename "name" to a different attribute name, e.g., "#n"
+    },
+    ExpressionAttributeValues: {
+      ":code": request.params.code,
+    },
+    ProjectionExpression: "lab, #n, color", // Use the renamed attribute name
+  };
+
+  dynamodb.query(params, (error, result) => {
+    if (error) {
+      response.json({ statusCode: 500, error: error.message });
+    } else {
+      const labs = result.Items.map((item) => item.lab);
+      const moduleInfo = {
+        name: result.Items[0].name,
+        color: result.Items[0].color,
+        lab: labs,
+      };
+
+      response.json({
+        statusCode: 200,
+        url: request.url,
+        body: moduleInfo,
+      });
+    }
+  });
+});
+
+// get lab data by module code and lab
+app.get("/modules/:code/:lab", function (request, response) {
   let params = {
     TableName: tableName,
     Key: {
-      id: request.params.id,
+      code: request.params.code,
+      lab: request.params.lab,
     },
   };
   dynamodb.get(params, (error, result) => {
@@ -91,13 +153,13 @@ app.get("/modules/:id", function (request, response) {
   });
 });
 
+// create module
 app.post("/modules", function (request, response) {
   const timestamp = new Date().toISOString();
   let params = {
     TableName: tableName,
     Item: {
       ...request.body,
-      id: uuidv4(), // auto-generate id
       createdAt: timestamp,
       updatedAt: timestamp,
     },
@@ -119,9 +181,11 @@ app.post("/modules", function (request, response) {
   });
 });
 
+// update module
+
 app.put("/modules", function (request, response) {
   const timestamp = new Date().toISOString();
-  const { id, code, name, color, labs } = request.body;
+  const { code, name, color, lab, students } = request.body;
 
   const updateExpressionParts = [];
   const expressionAttributeValues = {};
@@ -145,10 +209,16 @@ app.put("/modules", function (request, response) {
     expressionAttributeNames["#color"] = "color";
   }
 
-  if (labs) {
-    updateExpressionParts.push("#labs = :labs");
-    expressionAttributeValues[":labs"] = labs;
-    expressionAttributeNames["#labs"] = "labs";
+  if (lab) {
+    updateExpressionParts.push("#lab = :lab");
+    expressionAttributeValues[":lab"] = lab;
+    expressionAttributeNames["#lab"] = "lab";
+  }
+
+  if (students) {
+    updateExpressionParts.push("#students = :students");
+    expressionAttributeValues[":students"] = students;
+    expressionAttributeNames["#students"] = "students";
   }
 
   updateExpressionParts.push("updatedAt = :updatedAt");
@@ -158,7 +228,7 @@ app.put("/modules", function (request, response) {
 
   const params = {
     TableName: tableName,
-    Key: { id },
+    Key: { code, lab },
     UpdateExpression: updateExpression,
     ExpressionAttributeValues: expressionAttributeValues,
     ExpressionAttributeNames: expressionAttributeNames,
@@ -182,14 +252,75 @@ app.put("/modules", function (request, response) {
   });
 });
 
-app.delete("/modules/:id", function (request, response) {
-  let params = {
+// delete module
+app.delete("/modules/:code", function (request, response) {
+  const higherLevelCode = request.params.code;
+
+  const scanParams = {
     TableName: tableName,
-    Key: {
-      id: request.params.id,
+    FilterExpression: "#code = :code",
+    ExpressionAttributeNames: {
+      "#code": "code",
+    },
+    ExpressionAttributeValues: {
+      ":code": higherLevelCode,
     },
   };
-  dynamodb.delete(params, (error, result) => {
+
+  dynamodb.scan(scanParams, (error, result) => {
+    if (error) {
+      response.json({
+        statusCode: 500,
+        error: error.message,
+        url: request.url,
+      });
+    } else {
+      // Delete each lab and code
+      const deletePromises = result.Items.map((item) => {
+        const deleteParams = {
+          TableName: tableName,
+          Key: {
+            code: item.code,
+            lab: item.lab,
+          },
+        };
+        return dynamodb.delete(deleteParams).promise();
+      });
+
+      // Execute all delete operations
+      Promise.all(deletePromises)
+        .then(() => {
+          response.json({
+            statusCode: 200,
+            message: "Items deleted successfully",
+            url: request.url,
+          });
+        })
+        .catch((error) => {
+          response.json({
+            statusCode: 500,
+            error: error.message,
+            url: request.url,
+          });
+        });
+    }
+  });
+});
+
+// delete lab
+app.delete("/modules/:code/:lab", function (request, response) {
+  const code = request.params.code;
+  const lab = request.params.lab;
+
+  const deleteParams = {
+    TableName: tableName,
+    Key: {
+      code: code,
+      lab: lab,
+    },
+  };
+
+  dynamodb.delete(deleteParams, (error) => {
     if (error) {
       response.json({
         statusCode: 500,
@@ -199,12 +330,13 @@ app.delete("/modules/:id", function (request, response) {
     } else {
       response.json({
         statusCode: 200,
+        message: "Item deleted successfully",
         url: request.url,
-        body: JSON.stringify(result),
       });
     }
   });
 });
+
 
 app.listen(3000, function () {
   console.log("App started");

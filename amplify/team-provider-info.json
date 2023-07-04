@@ -22,17 +22,17 @@
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",
           "s3Key": "amplify-builds/AdminQueries8dc1fec9-56784d37723071527166-build.zip"
         },
-        "ladmodulefunction": {
+        "ladmodulesfunction": {
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",
-          "s3Key": "amplify-builds/ladmodulefunction-3554354f7672595a4248-build.zip"
+          "s3Key": "amplify-builds/ladmodulesfunction-7630756a532b4f597061-build.zip"
         }
       },
       "api": {
         "AdminQueries": {},
-        "ladapi": {}
+        "ladappapi": {}
       },
       "storage": {
-        "ladmoduledb": {}
+        "ladmodulesdb": {}
       }
     }
   }
