@@ -6,12 +6,13 @@ import { API } from "aws-amplify";
 import { useParams } from "react-router-dom";
 import LabInputForm from "../components/LabInputForm";
 
-export default function CreateLab() {
+export default function EditLab() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { moduleCode } = useParams();
+  const { lab } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    code: moduleCode,
+    code: "",
     name: "",
     color: "",
     lab: "",
@@ -19,13 +20,17 @@ export default function CreateLab() {
   });
 
   useEffect(() => {
-    const fetchModuleData = async () => {
-      API.get("ladappapi", `/modules/${moduleCode}`, {})
+    const fetchModuleLabData = async () => {
+      API.get("ladappapi", `/modules/${moduleCode}/${lab}`, {})
         .then((result) => {
+          const labData = JSON.parse(result.body);
           setFormData({
             ...formData,
-            name: result.body.name,
-            color: result.body.color,
+            code: labData.code,
+            name: labData.name,
+            color: labData.color,
+            lab: labData.lab,
+            students: labData.students,
           });
         })
         .catch((err) => {
@@ -33,16 +38,15 @@ export default function CreateLab() {
         });
     };
 
-    fetchModuleData();
+    fetchModuleLabData();
   }, []);
 
-  const createNewLab = async (data) => {
-    API.post("ladappapi", "/modules", {
+  const editLab = async (data) => {
+    API.put("ladappapi", `/modules/${moduleCode}/${lab}`, {
       body: data,
     })
       .then((result) => {
-        const labData = JSON.parse(result.body);
-        console.log(labData);
+        console.log(result)
       })
       .catch((err) => {
         console.log(err);
@@ -51,7 +55,8 @@ export default function CreateLab() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createNewLab(formData);
+    console.log(formData)
+    editLab(formData);
 
     setSearchParams("");
     navigate(`/manage-modules/${moduleCode}/enrol-students`);
@@ -69,20 +74,20 @@ export default function CreateLab() {
           "Home",
           "Manage Module Workspaces",
           `${moduleCode}`,
-          "Create New Lab",
+          `Edit ${lab}`,
         ]}
-        heading={"Create New Lab"}
-        description={"Creating a new lab"}
+        heading={`Edit ${lab}`}
+        description={`Editing lab ${lab} for module ${moduleCode}`}
         buttonText={null}
         buttonRoute={"/"}
       />
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
-        <LabCreationSteps step="1" />
         <LabInputForm
           formData={formData}
           setFormData={setFormData}
           handleSubmit={handleSubmit}
           handleReturn={handleReturn}
+          lab={lab}
         />
       </section>
     </>

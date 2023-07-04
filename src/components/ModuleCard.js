@@ -7,8 +7,6 @@ export default function ModuleCard({ moduleData, viewRoute, deleteModule }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [bgColor, setBgColor] = useState("");
 
-  console.log(moduleData)
-
   useEffect(() => {
     switch (moduleData.color) {
       case "red":

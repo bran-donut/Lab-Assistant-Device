@@ -24,6 +24,7 @@ import CreateModule from "./pages/CreateModule";
 import EnrolStudents from "./pages/EnrolStudents";
 import ViewModule from "./pages/ViewModule";
 import CreateLab from "./pages/CreateLab";
+import EditLab from "./pages/EditLab";
 
 function App() {
   const components = {
@@ -101,6 +102,7 @@ function App() {
                 />
                 <Route path="/manage-modules/:moduleCode" element={<ViewModule />} />
                 <Route path="/manage-modules/:moduleCode/create" element={<CreateLab />} />
+                <Route path="/manage-modules/:moduleCode/:lab/edit/" element={<EditLab />} />
                 <Route
                   path="/manage-modules/:moduleCode/enrol-students"
                   element={<EnrolStudents />}

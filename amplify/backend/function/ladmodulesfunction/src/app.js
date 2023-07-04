@@ -181,21 +181,14 @@ app.post("/modules", function (request, response) {
   });
 });
 
-// update module
-
-app.put("/modules", function (request, response) {
+// upodate module
+app.put("/modules/:code/:lab", function (request, response) {
   const timestamp = new Date().toISOString();
-  const { code, name, color, lab, students } = request.body;
+  const { name, color, students } = request.body;
 
   const updateExpressionParts = [];
   const expressionAttributeValues = {};
   const expressionAttributeNames = {};
-
-  if (code) {
-    updateExpressionParts.push("#code = :code");
-    expressionAttributeValues[":code"] = code;
-    expressionAttributeNames["#code"] = "code";
-  }
 
   if (name) {
     updateExpressionParts.push("#name = :name");
@@ -209,18 +202,6 @@ app.put("/modules", function (request, response) {
     expressionAttributeNames["#color"] = "color";
   }
 
-  if (lab) {
-    updateExpressionParts.push("#lab = :lab");
-    expressionAttributeValues[":lab"] = lab;
-    expressionAttributeNames["#lab"] = "lab";
-  }
-
-  if (students) {
-    updateExpressionParts.push("#students = :students");
-    expressionAttributeValues[":students"] = students;
-    expressionAttributeNames["#students"] = "students";
-  }
-
   updateExpressionParts.push("updatedAt = :updatedAt");
   expressionAttributeValues[":updatedAt"] = timestamp;
 
@@ -228,7 +209,7 @@ app.put("/modules", function (request, response) {
 
   const params = {
     TableName: tableName,
-    Key: { code, lab },
+    Key: { code: request.params.code, lab: request.params.lab },
     UpdateExpression: updateExpression,
     ExpressionAttributeValues: expressionAttributeValues,
     ExpressionAttributeNames: expressionAttributeNames,
@@ -336,7 +317,6 @@ app.delete("/modules/:code/:lab", function (request, response) {
     }
   });
 });
-
 
 app.listen(3000, function () {
   console.log("App started");

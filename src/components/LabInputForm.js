@@ -17,20 +17,35 @@ export default function LabInputForm({
           {lab ? `Editing ${lab}` : "Create lab"}
         </h1>
         <p className="font-normal text-gray-600">
-          Input the lab code and name
+          {lab ? `Edit the lab code and name` : "Input the lab code and name"}
         </p>
         <p className="font-semibold text-gray-800">Lab Code</p>
-        <input
-          id="labnCode"
-          type="text"
-          placeholder="Input lab code Ex. P1"
-          defaultValue={formData.lab ? formData.lab : ""}
-          onChange={(e) => {
-            setFormData({ ...formData, lab: e.target.value });
-          }}
-          className="p-2 border border-gray-300 rounded-lg"
-          required
-        />
+        {lab ? (
+          <input
+            id="labCode"
+            type="text"
+            placeholder="Input lab code Ex. P1"
+            defaultValue={lab ? lab : ""}
+            onChange={(e) => {
+              setFormData({ ...formData, lab: e.target.value });
+            }}
+            className="p-2 border border-gray-300 rounded-lg"
+            disabled
+          />
+        ) : (
+          <input
+            id="labCode"
+            type="text"
+            placeholder="Input lab code Ex. P1"
+            defaultValue={lab ? lab : ""}
+            onChange={(e) => {
+              setFormData({ ...formData, lab: e.target.value });
+            }}
+            className="p-2 border border-gray-300 rounded-lg"
+            required
+          />
+        )}
+
         <p className="font-semibold text-gray-800">Lab Name</p>
         <input
           id="labName"

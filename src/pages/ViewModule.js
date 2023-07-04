@@ -50,10 +50,12 @@ export default function ViewModule() {
         {moduleData
           ? moduleData.lab.map((e, i) => (
               <LabCard
+                key={i}
                 moduleCode={moduleCode}
                 labCode={moduleData.lab[i]}
                 viewRoute={`/manage-modules/${moduleCode}/${moduleData.lab[i]}`}
                 deleteLab={removeLab}
+                editRoute={`/manage-modules/${moduleCode}/${moduleData.lab[i]}/edit`}
               />
             ))
           : "No labs found"}
