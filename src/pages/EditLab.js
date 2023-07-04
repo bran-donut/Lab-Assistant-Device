@@ -59,7 +59,7 @@ export default function EditLab() {
     editLab(formData);
 
     setSearchParams("");
-    navigate(`/manage-modules/${moduleCode}/enrol-students`);
+    navigate(`/manage-modules/${moduleCode}/${lab}/enrol-students`);
   };
 
   const handleReturn = () => {

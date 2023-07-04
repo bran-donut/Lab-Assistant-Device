@@ -42,7 +42,10 @@ export default function CreateLab() {
     })
       .then((result) => {
         const labData = JSON.parse(result.body);
-        console.log(labData);
+        setSearchParams("");
+        navigate(
+          `/manage-modules/${moduleCode}/${labData.lab}/enrol-students`
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -52,9 +55,6 @@ export default function CreateLab() {
   const handleSubmit = (e) => {
     e.preventDefault();
     createNewLab(formData);
-
-    setSearchParams("");
-    navigate(`/manage-modules/${moduleCode}/enrol-students`);
   };
 
   const handleReturn = () => {

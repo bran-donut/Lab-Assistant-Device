@@ -104,7 +104,7 @@ function App() {
                 <Route path="/manage-modules/:moduleCode/create" element={<CreateLab />} />
                 <Route path="/manage-modules/:moduleCode/:lab/edit/" element={<EditLab />} />
                 <Route
-                  path="/manage-modules/:moduleCode/enrol-students"
+                  path="/manage-modules/:moduleCode/:lab/enrol-students"
                   element={<EnrolStudents />}
                 />
               </Routes>
