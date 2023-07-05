@@ -20,7 +20,7 @@
       "function": {
         "AdminQueries8dc1fec9": {
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",
-          "s3Key": "amplify-builds/AdminQueries8dc1fec9-56784d37723071527166-build.zip"
+          "s3Key": "amplify-builds/AdminQueries8dc1fec9-74333937767750304261-build.zip"
         },
         "ladmodulesfunction": {
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",

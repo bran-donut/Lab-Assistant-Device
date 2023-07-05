@@ -16,6 +16,7 @@ const bodyParser = require('body-parser');
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware');
 
 const {
+  createUser,
   addUserToGroup,
   removeUserFromGroup,
   confirmUserSignUp,
@@ -259,6 +260,42 @@ app.post('/signUserOut', async (req, res, next) => {
     next(err);
   }
 });
+
+// create user
+app.post("/createUser", async (req, res, next) => {
+  if (!req.body.username) {
+    const err = new Error("username is required");
+    err.statusCode = 400;
+    return next(err);
+  }
+  if (!req.body.password) {
+    const err = new Error("password is required");
+    err.statusCode = 400;
+    return next(err);
+  }
+  if (!req.body.email) {
+    const err = new Error("email is required");
+    err.statusCode = 400;
+    return next(err);
+  }
+  if (!req.body.name) {
+    const err = new Error("name is required");
+    err.statusCode = 400;
+    return next(err);
+  }
+  try {
+    const response = await createUser(
+      req.body.username,
+      req.body.password,
+      req.body.email,
+      req.body.name
+    );
+    res.status(200).json(response);
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 // Error middleware must be defined last
 app.use((err, req, res, next) => {

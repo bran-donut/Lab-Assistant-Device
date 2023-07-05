@@ -2,13 +2,13 @@ import { Amplify, Auth, API } from "aws-amplify";
 
 // AWS Amplify AdminQueries API
 
-export const addToGroup = async () => {
+export const addToGroup = async (username, groupname) => {
   let apiName = "AdminQueries";
   let path = "/addUserToGroup";
   let myInit = {
     body: {
-      username: "richard",
-      groupname: "Editors",
+      username: username,
+      groupname: groupname,
     },
     headers: {
       "Content-Type": "application/json",
@@ -42,4 +42,27 @@ export const listStudents = async (limit) => {
   const { NextToken, ...rest } = await API.get(apiName, path, myInit);
   nextToken = NextToken;
   return rest;
+};
+
+export const createUserAction = async (username, email, password, name) => {
+  try {
+    const apiName = 'AdminQueries';
+    const path = '/createUser';
+    const myInit = {
+      body: {
+        username,
+        email,
+        password,
+        name,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: (await Auth.currentSession()).getAccessToken().getJwtToken(),
+      },
+    };
+
+    return await API.post(apiName, path, myInit);
+  } catch (error) {
+    throw error;
+  }
 };

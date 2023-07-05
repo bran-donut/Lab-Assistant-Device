@@ -82,6 +82,8 @@ export default function CreateModule() {
       });
   }, []);
 
+  console.log(studentData)
+
   return (
     <>
       <Pageheader

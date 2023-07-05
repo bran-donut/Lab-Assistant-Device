@@ -58,13 +58,13 @@ export default function LabCard({
             </div>
 
             <div className="flex items-center">
-              <NavLink to={viewRoute} exact activeClassName="text-white">
+              <NavLink to={viewRoute}  >
                 <button className="flex items-center px-3 py-1 text-sm font-medium text-black hover:text-green-600 focus:outline-none">
                   <EyeIcon className="w-5 h-5 mr-1" />
                   View
                 </button>
               </NavLink>
-              <NavLink to={editRoute} exact activeClassName="text-white">
+              <NavLink to={editRoute}  >
                 <button className="flex items-center px-3 py-1 text-sm font-medium text-black hover:text-blue-600 focus:outline-none">
                   <PencilIcon className="w-5 h-5 mr-1" />
                   Edit

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { TrashIcon, SearchIcon } from "@heroicons/react/outline";
 
-export default function EnrolTable({ studentData, currentStudents, handleReturn }) {
+export default function EnrolTable({
+  studentData,
+  currentStudents,
+  handleReturn,
+}) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7; // Number of rows to display per page
   const [searchQuery, setSearchQuery] = useState("");
@@ -30,10 +34,9 @@ export default function EnrolTable({ studentData, currentStudents, handleReturn 
   };
 
   const handleAddStudent = (student) => {
-    // if (!selectedStudents.includes(student)) {
-    //   setSelectedStudents((prevStudents) => [...prevStudents, student]);
-    // }
-    setSelectedStudents((prevStudents) => [...prevStudents, student]);
+    if (!selectedStudents.includes(student)) {
+      setSelectedStudents((prevStudents) => [...prevStudents, student]);
+    }
   };
 
   const handleRemoveStudent = (student) => {
@@ -41,6 +44,16 @@ export default function EnrolTable({ studentData, currentStudents, handleReturn 
       prevStudents.filter((s) => s !== student)
     );
   };
+
+  function getStudentName(attributes) {
+    const nameAttribute = attributes.find((attr) => attr.Name === "name");
+    return nameAttribute ? nameAttribute.Value : null;
+  }
+
+  function getStudentEmail(attributes) {
+    const nameAttribute = attributes.find((attr) => attr.Name === "email");
+    return nameAttribute ? nameAttribute.Value : null;
+  }
 
   return (
     <section className="flex gap-5">
@@ -103,13 +116,13 @@ export default function EnrolTable({ studentData, currentStudents, handleReturn 
                   currentPageData.map((student, index) => (
                     <tr key={index}>
                       <td className="px-6 py-4 font-medium text-gray-900">
-                        {student["Attributes"][2].Value}
+                        {getStudentName(student["Attributes"])}
                       </td>
                       <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {student["Username"]}
                       </td>
                       <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {student["Attributes"][3].Value}
+                        {getStudentEmail(student["Attributes"])}
                       </td>
                       {/* <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {account["tags"].map((tag, index) => (
@@ -149,19 +162,20 @@ export default function EnrolTable({ studentData, currentStudents, handleReturn 
         </div>
       </div>
       <div className="flex flex-col w-1/3 mt-3">
-        <h2 className="mb-4 text-2xl font-semibold text-center">Selected Students</h2>
+        <h2 className="mb-4 text-2xl font-semibold text-center">
+          Selected Students
+        </h2>
         <div className="flex flex-col gap-2 ">
           {selectedStudents.length > 0 ? (
             <table className="w-full text-sm text-left text-gray-500 bg-white rounded-md">
-
               <tbody>
                 {selectedStudents.map((student) => (
                   <tr key={student["Username"]}>
                     <td className="px-6 py-4 font-medium text-gray-900">
-                      {student["Attributes"][2].Value}
+                      {student["Username"]}
                     </td>
                     <td className="px-6 py-4 font-medium text-gray-900">
-                      {student["Username"]}
+                      {getStudentName(student["Attributes"])}
                     </td>
                     <td className="flex justify-end gap-5 px-6 py-4">
                       <button

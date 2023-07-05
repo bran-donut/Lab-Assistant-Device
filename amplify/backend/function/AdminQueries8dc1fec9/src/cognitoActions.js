@@ -244,7 +244,44 @@ async function signUserOut(username) {
   }
 }
 
+async function createUser(username, password, email, name) {
+  var params = {
+    UserPoolId: userPoolId,
+    Username: username,
+    DesiredDeliveryMediums: ["EMAIL"],
+    MessageAction: "SUPPRESS",
+    TemporaryPassword: password,
+    UserAttributes: [
+      {
+        Name: "email",
+        Value: email,
+      },
+      {
+        Name: "name",
+        Value: name,
+      },
+    ],
+  };
+
+  console.log(`Attempting to create user ${username}`);
+  try {
+    const result = await cognitoIdentityServiceProvider
+      .adminCreateUser(params)
+      .promise();
+    console.log(`${username} successfully created`);
+    return {
+      message: `${username} successfully created`,
+    };
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+
+
 module.exports = {
+  createUser,
   addUserToGroup,
   removeUserFromGroup,
   confirmUserSignUp,

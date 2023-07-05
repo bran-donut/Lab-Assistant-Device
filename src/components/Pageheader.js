@@ -35,8 +35,8 @@ export default function PageHeader({
             {buttonText === null || buttonText === "" ? null : (
               <NavLink
                 to={buttonRoute}
-                exact
-                activeClassName="text-white"
+                
+                
                 className="flex items-center px-4 py-2 text-sm font-normal text-white bg-black border-2 rounded-md hover:text-blue-600 focus:outline-none"
               >
                 <PlusIcon className="w-5 h-5 mr-1" />

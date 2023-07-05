@@ -1,10 +1,29 @@
 import { useState, useEffect } from "react";
 import Pageheader from "../components/Pageheader";
-import { Auth, API } from "aws-amplify";
+import { addToGroup, createUserAction } from "../api";
 
 export default function Home({ user }) {
   useEffect(() => {
+    // testing user creation api for adding students
 
+    // createUserAction("1000000", "kevin@example.com", "brandonut", "Kevin")
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
+    //   addToGroup("1000000", "Students")
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+
+    //   addToGroup()
+    //   createUserAction()
   }, []);
 
   const [moduleData, setModuleData] = useState([

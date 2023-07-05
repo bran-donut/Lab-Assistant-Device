@@ -48,7 +48,7 @@ export default function ModuleCard({ moduleData, viewRoute, deleteModule }) {
             </div>
 
             <div className="flex items-center">
-            <NavLink to={viewRoute} exact activeClassName="text-white">
+              <NavLink to={viewRoute}  >
                 <button className="flex items-center px-3 py-1 text-sm font-medium text-black hover:text-green-600 focus:outline-none">
                   <EyeIcon className="w-5 h-5 mr-1" />
                   View
@@ -66,7 +66,15 @@ export default function ModuleCard({ moduleData, viewRoute, deleteModule }) {
           <span className="pl-2 pr-5 text-gray-500 ">
             Number of labs: {moduleData.labs.length}
           </span>
-          <span className="pr-5 text-gray-500">Lab Names: {moduleData.labs.map((lab, i) => (<span>{lab} </span>))}</span>
+          <span className="pr-5 text-gray-500">
+            Lab Names:{" "}
+            {moduleData.labs.map((lab, i) => (
+              <span>
+                {lab}
+                {moduleData.labs.length - 1 != i ? "," : ""}{" "}
+              </span>
+            ))}
+          </span>
         </div>
         {/* Delete Confirmation Modal */}
         {showDeleteModal && (
