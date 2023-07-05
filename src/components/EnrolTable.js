@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { TrashIcon, SearchIcon } from "@heroicons/react/outline";
 
-export default function EnrolTable({
-  studentData,
-  formData,
-  setFormData,
-  handleReturn,
-  updateStudentList,
-}) {
+export default function EnrolTable({ studentData, formData, setFormData }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7; // Number of rows to display per page
   const [searchQuery, setSearchQuery] = useState("");
@@ -38,7 +32,9 @@ export default function EnrolTable({
     setFormData((prevFormData) => {
       const updatedStudents = [...prevFormData.students];
 
-      const studentExists = updatedStudents.some((s) => s.Username === student.Username);
+      const studentExists = updatedStudents.some(
+        (s) => s.Username === student.Username
+      );
 
       if (!studentExists) {
         updatedStudents.push(student);
@@ -50,7 +46,9 @@ export default function EnrolTable({
 
   const handleRemoveStudent = (student) => {
     setFormData((prevFormData) => {
-      const updatedStudents = prevFormData.students.filter((s) => s.Username !== student.Username);
+      const updatedStudents = prevFormData.students.filter(
+        (s) => s.Username !== student.Username
+      );
 
       return { ...prevFormData, students: updatedStudents };
     });
@@ -66,11 +64,6 @@ export default function EnrolTable({
     return nameAttribute ? nameAttribute.Value : null;
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    updateStudentList(formData);
-  };
-
   return (
     <section className="flex gap-5">
       <div className="flex flex-col w-2/3">
@@ -81,7 +74,7 @@ export default function EnrolTable({
               placeholder="Search by name"
               value={searchQuery}
               onChange={handleSearch}
-              className="w-full py-2 pl-10 pr-4 border-gray-300 rounded-lg"
+              className="w-full py-2 pl-10 pr-4 border-2 border-gray-300 rounded-lg"
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <SearchIcon className="w-4 h-4 text-gray-400" />
@@ -152,6 +145,7 @@ export default function EnrolTable({
                       </td> */}
                       <td className="flex justify-end gap-5 px-6 py-4">
                         <button
+                          type="button"
                           className="flex items-center justify-center px-4 py-2 text-white bg-green-500 rounded-lg whitespace-nowrap"
                           onClick={() => handleAddStudent(student)}
                         >
@@ -195,6 +189,7 @@ export default function EnrolTable({
                     </td>
                     <td className="flex justify-end gap-5 px-6 py-4">
                       <button
+                        type="button"
                         className="px-4 py-2 text-white bg-red-500 rounded-lg"
                         onClick={() => handleRemoveStudent(student)}
                       >
@@ -208,23 +203,6 @@ export default function EnrolTable({
           ) : (
             <p className="py-4">No students selected</p>
           )}
-        </div>
-        <div className="flex gap-3 mt-2">
-          <button
-            type="button"
-            onClick={handleReturn}
-            className="flex-1 px-5 py-2 text-black transition-colors duration-150 bg-white border-2 border-gray-200 rounded-md hover:bg-gray-200"
-          >
-            Cancel
-          </button>
-
-          <button
-            type="button"
-            className="flex-1 px-5 py-2 text-white transition-colors duration-150 bg-black rounded-md hover:bg-black/70"
-            onClick={handleSubmit}
-          >
-            Next Step
-          </button>
         </div>
       </div>
     </section>

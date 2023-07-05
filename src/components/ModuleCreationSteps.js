@@ -1,6 +1,6 @@
 import React from "react";
 
-const LabCreationSteps = ({ step }) => {
+const ModuleCreationSteps = ({ step }) => {
   return (
     <div className="flex items-center justify-center w-full gap-20 p-4">
       <div className={`flex ${step == 0 ? " text-black" : "text-black/40"}`}>
@@ -18,7 +18,7 @@ const LabCreationSteps = ({ step }) => {
           </span>
         </span>
         <div>
-          <span>Creating Lab</span>
+          <span>Creating Module</span>
           <p>Code and Name</p>
         </div>
       </div>
@@ -37,8 +37,8 @@ const LabCreationSteps = ({ step }) => {
           </span>
         </span>
         <div>
-          <span>Enrol Students</span>
-          <p>Add students to lab</p>
+          <span>Creating Lab</span>
+          <p>Code and Name</p>
         </div>
       </div>
       <div className={`flex ${step == 2 ? " text-black" : "text-black/40"}`}>
@@ -56,12 +56,12 @@ const LabCreationSteps = ({ step }) => {
           </span>
         </span>
         <div>
-          <span>Finish</span>
-          <p>Finalise</p>
+          <span>Enrol Students</span>
+          <p>Add students to lab</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default LabCreationSteps;
+export default ModuleCreationSteps;

@@ -43,9 +43,7 @@ export default function CreateLab() {
       .then((result) => {
         const labData = JSON.parse(result.body);
         setSearchParams("");
-        navigate(
-          `/manage-modules/${moduleCode}/${labData.lab}/enrol-students`
-        );
+        navigate(`/manage-modules/${moduleCode}/${labData.lab}/enrol-students`);
       })
       .catch((err) => {
         console.log(err);
@@ -77,13 +75,32 @@ export default function CreateLab() {
         buttonRoute={"/"}
       />
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
-        <LabCreationSteps step="1" />
-        <LabInputForm
-          formData={formData}
-          setFormData={setFormData}
-          handleSubmit={handleSubmit}
-          handleReturn={handleReturn}
-        />
+        <LabCreationSteps step="0" />
+        <form
+          className="flex flex-col flex-grow w-1/2 h-full gap-3 p-10 mx-auto bg-white border-2 rounded-lg"
+          onSubmit={handleSubmit}
+        >
+          <LabInputForm
+            formData={formData}
+            setFormData={setFormData}
+          />
+          <div className="flex gap-3 mt-2">
+            <button
+              type="button"
+              onClick={handleReturn}
+              className="flex-1 px-5 py-2 text-black transition-colors duration-150 bg-white border-2 border-gray-200 rounded-md hover:bg-gray-200"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              className="flex-1 px-5 py-2 text-white transition-colors duration-150 bg-black rounded-md hover:bg-black/70"
+            >
+              Next Step
+            </button>
+          </div>
+        </form>
       </section>
     </>
   );

@@ -22,16 +22,20 @@ export default function CreateModule() {
     students: [],
   });
 
-  const updateStudentList = async (data) => {
+  const updateDatabase = async (data) => {
     API.put("ladappapi", `/modules/${moduleCode}/${lab}`, {
       body: data,
     })
       .then((result) => {
-        console.log(result)
+        console.log(result);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleSubmit = () => {
+    updateDatabase(formData)
   };
 
   const handleReturn = () => {
@@ -82,15 +86,41 @@ export default function CreateModule() {
   return (
     <>
       <Pageheader
-        breadCrumbItems={["Home", "Manage Module Workspaces", `${moduleCode}`, "Enrol Students"]}
+        breadCrumbItems={[
+          "Home",
+          "Manage Module Workspaces",
+          `${moduleCode}`,
+          "Enrol Students",
+        ]}
         heading={"Enrol students to the new lab"}
-        description={"Creating a new module"}
+        description={"Select students to enrol them to the new lab"}
         buttonText={"Manage Student List"}
         buttonRoute={"/"}
       />
-      <ModuleCreationSteps step="2" />
+      <ModuleCreationSteps step="1" />
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
-        <EnrolTable studentData={studentData} setFormData={setFormData} formData={formData} handleReturn={handleReturn} updateStudentList={updateStudentList}/>
+        <EnrolTable
+          studentData={studentData}
+          setFormData={setFormData}
+          formData={formData}
+        />
+        <div className="flex gap-3 mt-2">
+          <button
+            type="button"
+            onClick={handleReturn}
+            className="flex-1 px-5 py-2 text-black transition-colors duration-150 bg-white border-2 border-gray-200 rounded-md hover:bg-gray-200"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            className="flex-1 px-5 py-2 text-white transition-colors duration-150 bg-black rounded-md hover:bg-black/70"
+            onClick={handleSubmit}
+          >
+            Next Step
+          </button>
+        </div>
       </section>
     </>
   );
