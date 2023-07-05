@@ -3,13 +3,14 @@ import { TrashIcon, SearchIcon } from "@heroicons/react/outline";
 
 export default function EnrolTable({
   studentData,
-  currentStudents,
+  formData,
+  setFormData,
   handleReturn,
+  updateStudentList,
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 7; // Number of rows to display per page
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedStudents, setSelectedStudents] = useState([]);
 
   // Calculate the start and end indexes of the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -18,9 +19,9 @@ export default function EnrolTable({
   // Get the data for the current page
   const currentPageData = studentData
     .filter((student) =>
-      student["Attributes"][2].Value.toLowerCase().includes(
-        searchQuery.toLowerCase()
-      )
+      getStudentName(student["Attributes"])
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
     )
     .slice(startIndex, endIndex);
 
@@ -34,15 +35,25 @@ export default function EnrolTable({
   };
 
   const handleAddStudent = (student) => {
-    if (!selectedStudents.includes(student)) {
-      setSelectedStudents((prevStudents) => [...prevStudents, student]);
-    }
+    setFormData((prevFormData) => {
+      const updatedStudents = [...prevFormData.students];
+
+      const studentExists = updatedStudents.some((s) => s.Username === student.Username);
+
+      if (!studentExists) {
+        updatedStudents.push(student);
+      }
+
+      return { ...prevFormData, students: updatedStudents };
+    });
   };
 
   const handleRemoveStudent = (student) => {
-    setSelectedStudents((prevStudents) =>
-      prevStudents.filter((s) => s !== student)
-    );
+    setFormData((prevFormData) => {
+      const updatedStudents = prevFormData.students.filter((s) => s.Username !== student.Username);
+
+      return { ...prevFormData, students: updatedStudents };
+    });
   };
 
   function getStudentName(attributes) {
@@ -54,6 +65,11 @@ export default function EnrolTable({
     const nameAttribute = attributes.find((attr) => attr.Name === "email");
     return nameAttribute ? nameAttribute.Value : null;
   }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    updateStudentList(formData);
+  };
 
   return (
     <section className="flex gap-5">
@@ -166,16 +182,16 @@ export default function EnrolTable({
           Selected Students
         </h2>
         <div className="flex flex-col gap-2 ">
-          {selectedStudents.length > 0 ? (
+          {formData.students.length > 0 ? (
             <table className="w-full text-sm text-left text-gray-500 bg-white rounded-md">
               <tbody>
-                {selectedStudents.map((student) => (
-                  <tr key={student["Username"]}>
+                {formData.students.map((student) => (
+                  <tr key={student.Username}>
                     <td className="px-6 py-4 font-medium text-gray-900">
-                      {student["Username"]}
+                      {student.Username}
                     </td>
                     <td className="px-6 py-4 font-medium text-gray-900">
-                      {getStudentName(student["Attributes"])}
+                      {getStudentName(student.Attributes)}
                     </td>
                     <td className="flex justify-end gap-5 px-6 py-4">
                       <button
@@ -205,6 +221,7 @@ export default function EnrolTable({
           <button
             type="button"
             className="flex-1 px-5 py-2 text-white transition-colors duration-150 bg-black rounded-md hover:bg-black/70"
+            onClick={handleSubmit}
           >
             Next Step
           </button>

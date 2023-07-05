@@ -24,7 +24,7 @@
         },
         "ladmodulesfunction": {
           "deploymentBucketName": "amplify-lad-dev-141058-deployment",
-          "s3Key": "amplify-builds/ladmodulesfunction-5a552b3748764c336565-build.zip"
+          "s3Key": "amplify-builds/ladmodulesfunction-37665952346b33364e73-build.zip"
         }
       },
       "api": {

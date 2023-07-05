@@ -22,6 +22,22 @@ export default function CreateModule() {
     students: [],
   });
 
+  const updateStudentList = async (data) => {
+    API.put("ladappapi", `/modules/${moduleCode}/${lab}`, {
+      body: data,
+    })
+      .then((result) => {
+        console.log(result)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleReturn = () => {
+    navigate(`/manage-modules/${moduleCode}`);
+  };
+
   useEffect(() => {
     const fetchModuleLabData = async () => {
       API.get("ladappapi", `/modules/${moduleCode}/${lab}`, {})
@@ -41,26 +57,6 @@ export default function CreateModule() {
         });
     };
 
-    fetchModuleLabData();
-  }, []);
-
-  const updateStudentList = async (data) => {
-    API.put("ladappapi", `/modules/${moduleCode}/${lab}`, {
-      body: data,
-    })
-      .then((result) => {
-        console.log(result)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleReturn = () => {
-    navigate(`/modules/${moduleCode}/${lab}`);
-  };
-
-  useEffect(() => {
     const fetchModule = async () => {
       API.get("ladappapi", `/modules/${moduleCode}`, {})
         .then((result) => {
@@ -71,8 +67,9 @@ export default function CreateModule() {
         });
     };
 
+    fetchModuleLabData();
     fetchModule();
-    listStudents(10)
+    listStudents()
       .then((result) => {
         const users = result.Users; // Extract the Users array from the result object
         setStudentData(users); // Set the Users array as the value of studentData
@@ -81,8 +78,6 @@ export default function CreateModule() {
         console.log(err);
       });
   }, []);
-
-  console.log(studentData)
 
   return (
     <>
@@ -95,7 +90,7 @@ export default function CreateModule() {
       />
       <ModuleCreationSteps step="2" />
       <section className="grid grid-cols-1 gap-0.5 px-8 py-5 mx-20">
-        <EnrolTable studentData={studentData} currentStudents={formData.students} handleReturn={handleReturn}/>
+        <EnrolTable studentData={studentData} setFormData={setFormData} formData={formData} handleReturn={handleReturn} updateStudentList={updateStudentList}/>
       </section>
     </>
   );

@@ -55,7 +55,6 @@ export default function EditLab() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
     editLab(formData);
 
     setSearchParams("");

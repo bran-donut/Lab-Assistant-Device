@@ -181,7 +181,7 @@ app.post("/modules", function (request, response) {
   });
 });
 
-// upodate module
+// update module
 app.put("/modules/:code/:lab", function (request, response) {
   const timestamp = new Date().toISOString();
   const { name, color, students } = request.body;
@@ -200,6 +200,12 @@ app.put("/modules/:code/:lab", function (request, response) {
     updateExpressionParts.push("#color = :color");
     expressionAttributeValues[":color"] = color;
     expressionAttributeNames["#color"] = "color";
+  }
+
+  if (students) {
+    updateExpressionParts.push("#students = :students");
+    expressionAttributeValues[":students"] = students;
+    expressionAttributeNames["#students"] = "students";
   }
 
   updateExpressionParts.push("updatedAt = :updatedAt");
@@ -232,6 +238,7 @@ app.put("/modules/:code/:lab", function (request, response) {
     }
   });
 });
+
 
 // delete module
 app.delete("/modules/:code", function (request, response) {
